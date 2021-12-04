@@ -1,0 +1,12 @@
+//= require rails-ujs
+//= require activestorage
+//= require js/bootstrap.min
+//= require js/jquery.easing.min
+//= require js/jquery.magnific-popup.min
+//= require js/jquery.nav
+//= require js/jquery-min
+//= require js/main
+//= require js/nivo-lightbox
+//= require js/owl.carousel
+//= require js/popper.min
+//= require js/scrolling-nav
