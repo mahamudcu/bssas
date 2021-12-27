@@ -19,8 +19,6 @@
 //// = require js/nivo-lightbox
 //// = require js/jquery.magnific-popup.min
 //// = require js/main
-//// = require rails-ujs
+// = require rails-ujs
 //// = require activestorage
 //// = require_tree .
-
-
