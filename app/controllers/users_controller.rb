@@ -19,6 +19,27 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def profile
+    @current_user = current_user
+  end
+
+  def edit_profile
+    @user = current_user
+  end
+
+  def update_profile
+    @user = User.find_by_id(profile_params[:id])
+    p '>>>>>>>>>>'
+    p @user
+    respond_to do |format|
+      if @user.update(profile_params)
+        format.html { redirect_to profile_path, notice: "Profile was successfully updated." }
+      else
+        format.html { render :edit_profile, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
@@ -64,6 +85,11 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :age, :phone,:email,:password,:password_confirmation)
+      params.require(:user).permit(:name, :age, :phone,:email,:password,:password_confirmation,:dob,:image)
     end
+
+  def profile_params
+    params.require(:user).permit(:id, :name, :age, :phone,:email,:dob,:image)
+  end
+
 end

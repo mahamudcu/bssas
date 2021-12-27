@@ -22,7 +22,6 @@
       itemsDesktop : [1199,1],
       itemsDesktopSmall : [980,1],
       itemsTablet: [768,1],
-      itemsTablet: [767,1],
       itemsTabletSmall: [480,1],
       itemsMobile : [479,1],
     });   
