@@ -17,13 +17,54 @@
   <!-- Bootstrap CSS -->
 
   <%= stylesheet_link_tag 'landing_page', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
+<header id="home" class="hero-area">
+<%= render 'shared/landing_top' %>
+<div class="container">
+  <div class="row space-100">
+    <div class="col-lg-6 col-md-12 col-xs-12">
+      <div class="contents">
+        <h2 class="head-title">Handcrafted Web Template <br>For Business and Startups</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab <br>dolores ea fugiat nesciunt quisquam.</p>
+        <div class="header-button">
+          <a href="#" class="btn btn-border-filled">Get Started</a>
+          <a href="#contact" class="btn btn-border page-scroll">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-xs-12 p-0">
+<!--      <div class="form-design" style="bottom: 0; right: 0;">-->
+<!--        <form action="/action_page.php">-->
+<!--          <div class="form-group">-->
+<!--            <label for="email">Email address:</label>-->
+<!--            <input type="email" class="form-control" id="email">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="pwd">Password:</label>-->
+<!--            <input type="password" class="form-control" id="pwd">-->
+<!--          </div>-->
+<!--          <div class="checkbox">-->
+<!--            <label><input type="checkbox"> Remember me</label>-->
+<!--          </div>-->
+<!--          <button type="submit" class="btn btn-default">Submit</button>-->
+<!--        </form>-->
+<!--      </div>-->
+      <div class="intro-img">
+        <%#= image_tag('img/intro.eps') %>
+        <%= image_tag('intro.png') %>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
 <%= yield %>
-
+<%= render 'shared/landing_footer' %>
 <%= javascript_include_tag 'landing_page', 'data-turbolinks-track': 'reload' %>
 
 </body>
