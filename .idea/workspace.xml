@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d76c59a-3eff-4a1a-9748-499c72855d10" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/users_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/users_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layouts/admin_layout.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/admin_layout.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/shared/_main_header.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_main_header.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/users/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/index.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/users/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/new.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/users/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/show.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shared/_sidebar.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_sidebar.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/edit.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/edit.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/edit_profile.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/edit_profile.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/profile.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/profile.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +179,7 @@
       <workItem from="1641055560756" duration="5430000" />
       <workItem from="1641117319872" duration="10957000" />
       <workItem from="1641186171991" duration="68000" />
-      <workItem from="1642859907833" duration="14536000" />
+      <workItem from="1642859907833" duration="19133000" />
     </task>
     <servers />
   </component>
