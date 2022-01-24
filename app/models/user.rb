@@ -7,6 +7,15 @@ class User < ApplicationRecord
 
   mount_uploader :image, AvatarUploader
 
+
+  ROLE = {
+    admin: 'admin',
+    super_admin: 'super_admin',
+    student: 'student',
+    x_student: 'x_student',
+    teacher: 'teacher',
+  }
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)

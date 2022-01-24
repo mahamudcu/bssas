@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d76c59a-3eff-4a1a-9748-499c72855d10" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bssas.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bssas.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e74c519-f196-4822-ac12-3f9ec69c7051.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e74c519-f196-4822-ac12-3f9ec69c7051.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/stylesheets/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/devise/registrations/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/devise/registrations/new.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/home/landing_page.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/home/landing_page.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layouts/landing_page_layout.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/landing_page_layout.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layouts/login_layout.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/login_layout.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/shared/_landing_top.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_landing_top.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/users_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/users_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/layouts/admin_layout.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/admin_layout.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shared/_main_header.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_main_header.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/new.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/show.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +53,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../myprojectmanager_api" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
   </component>
@@ -184,7 +184,7 @@
       <workItem from="1641055560756" duration="5430000" />
       <workItem from="1641117319872" duration="10957000" />
       <workItem from="1641186171991" duration="68000" />
-      <workItem from="1642859907833" duration="9898000" />
+      <workItem from="1642859907833" duration="14536000" />
     </task>
     <servers />
   </component>
@@ -203,6 +203,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1642860076534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
+    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1642965500327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
   </component>
 </project>

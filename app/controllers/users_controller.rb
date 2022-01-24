@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   def update_profile
     @user = User.find_by_id(profile_params[:id])
     p '>>>>>>>>>>'
+    p User::ROLE[:x_student]
     p @user
     respond_to do |format|
       if @user.update(profile_params)
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+    p User::ROLE[:x_student]
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: "User was successfully created." }
@@ -85,11 +86,11 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :age, :phone,:email,:password,:password_confirmation,:dob,:image)
+      params.require(:user).permit(:name, :age, :phone,:email,:password,:password_confirmation,:dob,:image,:role,:is_active)
     end
 
   def profile_params
-    params.require(:user).permit(:id, :name, :age, :phone,:email,:dob,:image)
+    params.require(:user).permit(:id, :name, :age, :phone,:email,:dob,:image,:role,:is_active)
   end
 
 end
