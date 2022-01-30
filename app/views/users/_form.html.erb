@@ -1,24 +1,22 @@
-<%#= form_for(user, url: controller.action_name == 'new' ? user_path : update_user_path(user), html: {class: 'user'}) do |form| %>
-
-
-<%#= form_for(user, url: controller.action_name == 'new' ? user_path : update_user_path(user), html: {class: 'user'}) do |form| %>
-
-
-        <%= form_with(model: user, local: true) do |form| %>
+<%= form_for(user, url: controller.action_name == 'new' ? create_user_path : user_update_path(user), html: {class: 'user'}) do |form| %>
+        <%#= form_with(model: user, local: true) do |form| %>
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <% if user.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+          <% if user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-                  <ul>
-                    <% user.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
+              <ul>
+                <% user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= form.select :role,User::ROLE, {:selected=> @user.role, prompt: 'Select User Type'}, class: 'form-control', required: true %>
+            </div>
+            <div class="col-md-6">
               <div class="form-group">
                   <%= form.label :name %>
                   <%= form.text_field :name,class: "form-control" %>
@@ -27,7 +25,6 @@
                 <%= form.label :password %>
                 <%= form.text_field :password,class: "form-control" %>
               </div>
-
             </div>
             <div class="col-md-6 ">
               <div class="form-group">
@@ -500,7 +497,7 @@
             <%= form.submit 'Submit',class: 'btn btn-success' %>
 
             <!--        <button class="btn btn-success">Submit</button>-->
-            <%= link_to 'Back', users_path, class:"btn btn-danger" %>
+            <%= link_to 'Back', user_list_path, class:"btn btn-danger" %>
             <!--          <button class="btn btn-danger">Cancel</button>-->
           </div>
         </div>
