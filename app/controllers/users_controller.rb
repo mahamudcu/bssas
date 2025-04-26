@@ -3,7 +3,19 @@ class UsersController < ApplicationController
   layout  'admin_layout'
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.admins
+  end
+
+  def request_student
+    @users = User.request_students
+  end
+
+  def ex_students
+    @users = User.ex_students
+  end
+
+  def alumni
+    @users = User.alumnies
   end
 
   # GET /users/1 or /users/1.json

@@ -1,0 +1,70 @@
+<!--<p id="notice"><%#= notice %></p>-->
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold"><%= type %></h2>
+        <!--        <h5 class="text-white op-7 mb-2">User List</h5>-->
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
+        <%= link_to 'Add User', new_user_path, class:"btn btn-secondary btn-round" %>
+        <!--        <a href="#" class="btn btn-secondary btn-round">Add Customer</a>-->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-inner mt--5">
+  <div class="row row-card-no-pd">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row card-tools-still-right">
+            <h4 class="card-title"><%= type %> List</h4>
+            <div class="card-tools">
+              <!--              <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>-->
+              <!--              <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>-->
+              <!--              <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>-->
+            </div>
+          </div>
+          <p class="card-category">
+            Map of the distribution of users around the world</p>
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="table-responsive# table-hover# table-sales#">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                  <th colspan="3"></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% users.each do |user| %>
+                  <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.age %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.phone %></td>
+                    <td><%= user.role %></td>
+                    <td><%= link_to 'Show', user_show_path(user.id)  %></td>
+                    <td><%= link_to 'Edit', edit_user_path(user) if current_user.is_admin? %></td>
+                    <td><%= link_to 'Destroy', delete_user_path(user.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.is_admin?%></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

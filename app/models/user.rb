@@ -13,8 +13,20 @@ class User < ApplicationRecord
     super_admin: 'super_admin',
     student: 'student',
     x_student: 'x_student',
+    alumni: 'alumni',
     teacher: 'teacher',
   }
+
+  scope :admins, ->{ where(role: ROLE[:admin]) }
+  scope :students, ->{ where(role: ROLE[:students]) }
+  scope :alumnies, ->{ where(role: ROLE[:alumni]) }
+  scope :ex_students, ->{ where(role: ROLE[:x_student]) }
+  scope :request_students, -> { where("role IS NULL OR role = ?", ROLE[:student]) }
+  scope :teachers, ->{ where(role: ROLE[:teacher]) }
+
+  def is_admin?
+    self.role == ROLE[:admin] || self.role == ROLE[:super_admin]
+  end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

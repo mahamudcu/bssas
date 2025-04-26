@@ -222,9 +222,32 @@
           <% end %>
         </li>
         <li class="nav-item">
+          <%= link_to request_student_path do %>
+            <i class="fa fa-users"></i>
+            <p>Students</p>
+            <span class="badge badge-success">4</span>
+          <% end %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to ex_students_path do %>
+            <i class="fa fa-users"></i>
+            <p>Ex-Students</p>
+            <span class="badge badge-success">4</span>
+          <% end %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to alumni_path do %>
+            <i class="fa fa-users"></i>
+            <p>Alumni List</p>
+            <span class="badge badge-success">4</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
           <%= link_to user_list_path do %>
             <i class="fa fa-users"></i>
-            <p>Users</p>
+            <p>Management Users</p>
             <span class="badge badge-success">4</span>
           <% end %>
         </li>

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     # resources :users
     scope :users do
       get 'new', to: 'users#new', as: :new_user
+      get 'students', to: 'users#request_student', as: :request_student
+      get 'ex-students', to: 'users#ex_students', as: :ex_students
+      get 'alumni', to: 'users#alumni', as: :alumni
       post 'create', to: 'users#create', as: :create_user
       get 'list', to: 'users#index', as: :user_list
       get ':id', to: 'users#show', as: :user_show
@@ -21,6 +24,8 @@ Rails.application.routes.draw do
 
    get 'dashboard', to: 'home#index', as: :dashboard
   get 'profile', to: 'users#profile', as: :profile
+  get 'student_registration', to: 'home#student_registration', as: :student_registration
+  post 'submit_registration', to: 'home#submit_registration', as: :submit_registration
   get 'edit_profile', to: 'users#edit_profile', as: :edit_profile
    patch 'update_profile', to: 'users#update_profile', as: :update_profile
   # get '/', to: 'home#landing_page', as: :landing_page
