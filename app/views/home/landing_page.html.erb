@@ -93,28 +93,32 @@
     <!-- Start Row -->
     <div class="text-center#">
      <h4> Mission Statement</h4>
-     <p>Shaped by the Catholic Benedictine heritage, The College of St. Scholastica provides intellectual and moral preparation for responsible living and meaningful work.</p>
+     <p>
+       <%= @setting.mission if @setting.present?%>
+<!--       Shaped by the Catholic Benedictine heritage, The College of St. Scholastica provides intellectual and moral preparation for responsible living and meaningful work.-->
+     </p>
 
      <h4> Vision Statement</h4>
-      <p>      The College of St. Scholastica aspires to be a diverse and inclusive academic community of excellence, grounded in the rich Catholic Benedictine heritage, sending forth thoughtful leaders sharpened and sensitized by the liberal arts, who are prepared and committed to serve and transform the world.
-      </p>
-        <p> The Purposes of The College of St. Scholastica are to: </p>
-        <p>        Foster an environment in which students, staff, and faculty will be inspired with the Benedictine values expressed in community, hospitality, respect, stewardship, and love of learning.
-        </p>
-        <p>
-          Stimulate a zest for lifelong learning by supporting the general education goals of critical thinking, intellectual integrity, aesthetic appreciation, and intellectual curiosity.
-        </p>
-        <p>
-          Prepare students, through undergraduate and graduate programs, for responsible leadership in professional positions and/or advanced studies.
-        </p>
-        <p>
-          Provide programs for traditional and nontraditional students to meet community needs.
-        </p>
-        <p>        Lead public interfaith discussions of ethics and peace and justice issues in the tradition of our Catholic Benedictine intellectual heritage.
-        </p>
-        <p>      Ensure continued access to a faith-based institution of higher learning through proper stewardship of human and fiscal resources.
+      <p> <%= @setting.vission if @setting.present?%></p>
+<!--      <p>      The College of St. Scholastica aspires to be a diverse and inclusive academic community of excellence, grounded in the rich Catholic Benedictine heritage, sending forth thoughtful leaders sharpened and sensitized by the liberal arts, who are prepared and committed to serve and transform the world.-->
+<!--      </p>-->
+<!--        <p> The Purposes of The College of St. Scholastica are to: </p>-->
+<!--        <p>        Foster an environment in which students, staff, and faculty will be inspired with the Benedictine values expressed in community, hospitality, respect, stewardship, and love of learning.-->
+<!--        </p>-->
+<!--        <p>-->
+<!--          Stimulate a zest for lifelong learning by supporting the general education goals of critical thinking, intellectual integrity, aesthetic appreciation, and intellectual curiosity.-->
+<!--        </p>-->
+<!--        <p>-->
+<!--          Prepare students, through undergraduate and graduate programs, for responsible leadership in professional positions and/or advanced studies.-->
+<!--        </p>-->
+<!--        <p>-->
+<!--          Provide programs for traditional and nontraditional students to meet community needs.-->
+<!--        </p>-->
+<!--        <p>        Lead public interfaith discussions of ethics and peace and justice issues in the tradition of our Catholic Benedictine intellectual heritage.-->
+<!--        </p>-->
+<!--        <p>      Ensure continued access to a faith-based institution of higher learning through proper stewardship of human and fiscal resources.-->
 
-        </p>
+<!--        </p>-->
 
     </div>
   </div>
@@ -209,15 +213,7 @@
     <!-- Start Row -->
     <h2> About  Us</h2>
     <div class="text-center">
-      About
-      Student-Alumni Council is a passionate, diverse group of student leaders striving to advance The Ohio State University through programs that enhance the student experience, promote student-alumni interaction, establish a spirit of loyalty to the university, and cultivate meaningful relationships. We aim to connect Buckeyes past, present and future so that everyone can be a Buckeye for life.
-
-      We held our first meeting in 1980 when 60 students gathered under a unifying focus to better The Ohio State University through student-alumni involvement. SAC has since grown to an organization of approximately 100 active and exemplary members who work to advance the university.
-
-      As a member of the Association of Student Advancement Programs, SAC has been honored at the national level for outstanding work in the development of student involvement in educational advancement.
-
-      No matter where you are located, you can be involved with SACAS! We invite you to explore this Infographic, to see where SAC alumni are located across the world.
-
+      <%= @setting.aboutus if @setting.present?%>
   </div>
   </div>
 </section>

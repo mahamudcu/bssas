@@ -1,0 +1,59 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Settings</h2>
+        <!--        <h5 class="text-white op-7 mb-2">User List</h5>-->
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to 'Back', settings_path, class:"btn btn-white btn-border btn-round mr-2" %>
+        <%= link_to 'Edit', edit_setting_path(@setting), class:"btn btn-white btn-border btn-round mr-2" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-inner mt--5">
+  <div class="row row-card-no-pd">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row card-tools-still-right">
+            <h4 class="card-title">Setting Details</h4>
+          </div>
+          <p class="card-category">
+            Map of the distribution of users around the world</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p id="notice"><%= notice %></p>
+              <p>
+                <strong>Contact address:</strong>
+                <%= @setting.contact_address %>
+              </p>
+
+              <p>
+                <strong>Aboutus:</strong>
+                <%= @setting.aboutus %>
+              </p>
+
+              <p>
+                <strong>Mission:</strong>
+                <%= @setting.mission %>
+              </p>
+
+              <p>
+                <strong>Vission:</strong>
+                <%= @setting.vission %>
+              </p>
+            </div>
+            <div class="col-md-6">
+              <%= image_tag(@setting.logo_url, style: 'height: 200px;') if @setting.logo.present? %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

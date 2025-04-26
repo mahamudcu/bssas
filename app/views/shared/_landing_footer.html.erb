@@ -9,7 +9,9 @@
 
         <!-- Start Col -->
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-mb-12">
-          <%= image_tag('img/bssas.png',:class => "img-fluid") %>
+          <%= image_tag('img/bssas.png',width: '130px') unless @setting.present? && @setting.logo.present? %>
+          <%= image_tag(@setting.logo.url,width: '130px') if @setting.present? && @setting.logo.present? %>
+          <%#= image_tag('img/bssas.png',:class => "img-fluid") %>
           <div class="footer-logo ">
 <!--            <h4 style="color: white">-->
 <!--              BALIDIA SECOENDARY SCHOOL ALMINA SOCITY-->

@@ -225,7 +225,7 @@
           <%= link_to request_student_path do %>
             <i class="fa fa-users"></i>
             <p>Students</p>
-            <span class="badge badge-success">4</span>
+            <span class="badge badge-success"><%= User.request_students.count %></span>
           <% end %>
         </li>
 
@@ -233,7 +233,7 @@
           <%= link_to ex_students_path do %>
             <i class="fa fa-users"></i>
             <p>Ex-Students</p>
-            <span class="badge badge-success">4</span>
+            <span class="badge badge-success"><%= User.ex_students.count %></span>
           <% end %>
         </li>
 
@@ -241,16 +241,26 @@
           <%= link_to alumni_path do %>
             <i class="fa fa-users"></i>
             <p>Alumni List</p>
-            <span class="badge badge-success">4</span>
+            <span class="badge badge-success"><%= User.alumnies.count %></span>
           <% end %>
         </li>
         <li class="nav-item">
           <%= link_to user_list_path do %>
             <i class="fa fa-users"></i>
             <p>Management Users</p>
-            <span class="badge badge-success">4</span>
+            <span class="badge badge-success"><%= User.admins.count %></span>
           <% end %>
         </li>
+
+        <li class="nav-item">
+          <%= link_to settings_path do %>
+            <i class="fa fa-users"></i>
+            <p>Settings</p>
+            <span class="badge badge-success"></span>
+          <% end %>
+        </li>
+
+
 
 <!--        <li class="nav-item active">-->
 <!--          <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">-->

@@ -1,0 +1,44 @@
+<%= form_with(model: setting, local: true) do |form| %>
+  <% if setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+
+      <ul>
+      <% setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= form.label :logo %>
+    <%= form.file_field :logo,class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :contact_address %>
+    <%= form.text_area :contact_address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :aboutus %>
+    <%= form.text_area :aboutus,class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :mission %>
+    <%= form.text_area :mission, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :vission %>
+    <%= form.text_area :vission, class: "form-control" %>
+  </div>
+
+  <div class="card-action">
+    <%= form.submit 'Submit',class: 'btn btn-success' %>
+    <%= link_to 'Back', settings_path, class:"btn btn-danger" %>
+  </div>
+<% end %>

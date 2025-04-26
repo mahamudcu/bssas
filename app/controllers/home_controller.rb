@@ -26,6 +26,7 @@ class HomeController < ApplicationController
   end
 
   def landing_page
+    @setting = Setting.last
     render layout: 'landing_page_layout'
   end
 

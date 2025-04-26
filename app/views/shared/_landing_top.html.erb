@@ -7,7 +7,8 @@
   <nav class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar" style="background: cornflowerblue">
     <div class="container">
       <a href="/" class="navbar-brand">
-        <%= image_tag('img/bssas.png',width: '130px') %>
+        <%= image_tag('img/bssas.png',width: '80px') unless @setting.present? && @setting.logo.present? %>
+        <%= image_tag(@setting.logo.url,width: '80px') if @setting.present? && @setting.logo.present? %>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <i class="lni-menu"></i>
