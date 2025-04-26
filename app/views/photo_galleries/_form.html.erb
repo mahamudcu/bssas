@@ -1,0 +1,33 @@
+<%= form_with(model: photo_gallery, local: true) do |form| %>
+  <% if photo_gallery.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(photo_gallery.errors.count, "error") %> prohibited this photo_gallery from being saved:</h2>
+
+      <ul>
+      <% photo_gallery.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title,class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image,class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description,class: "form-control" %>
+  </div>
+
+  <div class="card-action">
+    <%= form.submit 'Submit',class: 'btn btn-success' %>
+    <%= link_to 'Back', recent_events_path, class:"btn btn-danger" %>
+  </div>
+<% end %>

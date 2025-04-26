@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9d76c59a-3eff-4a1a-9748-499c72855d10" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/home_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/home_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/home/landing_page.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/home/landing_page.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/shared/_landing_footer.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_landing_footer.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/shared/_landing_top.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_landing_top.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/shared/_sidebar.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_sidebar.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
@@ -213,7 +209,7 @@
       <workItem from="1643216205601" duration="6154000" />
       <workItem from="1745300694618" duration="4127000" />
       <workItem from="1745407710108" duration="4123000" />
-      <workItem from="1745655988175" duration="11769000" />
+      <workItem from="1745655988175" duration="13483000" />
     </task>
     <servers />
   </component>
@@ -232,6 +228,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1745691104906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
+    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1745693733020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
   </component>
 </project>

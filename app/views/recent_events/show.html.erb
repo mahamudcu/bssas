@@ -1,0 +1,59 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Event</h2>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to 'Back', recent_events_path, class:"btn btn-white btn-border btn-round mr-2" %>
+        <%= link_to 'Add User', new_user_path, class:"btn btn-secondary btn-round" %>
+        <%= link_to 'Edit', edit_recent_event_path(@recent_event), class:"btn btn-secondary btn-round" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-inner mt--5">
+  <div class="row row-card-no-pd">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row card-tools-still-right">
+            <h4 class="card-title">Event Details</h4>
+          </div>
+          <p class="card-category">
+            Map of the distribution of users around the world</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+
+              <p id="notice"><%= notice %></p>
+
+              <p>
+                <strong>Title:</strong>
+                <%= @recent_event.title %>
+              </p>
+
+
+              <p>
+                <strong>Description:</strong>
+                <%= @recent_event.description %>
+              </p>
+
+            </div>
+            <div class="col-md-6">
+              <%= image_tag(@recent_event.image_url, style: 'height: 200px;') if @recent_event.image.present? %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

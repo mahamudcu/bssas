@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :recent_events
+  resources :photo_galleries
   resources :settings
     # devise_for :users
    #devise_for :users, :controllers => { :sessions => "users/sessions" }

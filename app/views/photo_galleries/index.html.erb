@@ -1,0 +1,62 @@
+<!--<p id="notice"><%#= notice %></p>-->
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Photo Galleries</h2>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <a href="#" class="btn btn-white btn-border btn-round mr-2">Photos</a>
+        <%= link_to 'New Photo Gallery', new_photo_gallery_path, class:"btn btn-secondary btn-round" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-inner mt--5">
+  <div class="row row-card-no-pd">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row card-tools-still-right">
+            <h4 class="card-title">Photo Galleries</h4>
+            <div class="card-tools">
+            </div>
+          </div>
+          <p class="card-category">
+            Map of the distribution of users around the world</p>
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="table-responsive# table-hover# table-sales#">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Image</th>
+                  <th>Description</th>
+                  <th colspan="3"></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% @photo_galleries.each do |photo_gallery| %>
+                  <tr>
+                    <td><%= photo_gallery.title %></td>
+                    <td><%= photo_gallery.image %></td>
+                    <td><%= photo_gallery.description %></td>
+                    <td><%= link_to 'Show', photo_gallery %></td>
+                    <td><%= link_to 'Edit', edit_photo_gallery_path(photo_gallery) %></td>
+                    <td><%= link_to 'Destroy', photo_gallery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

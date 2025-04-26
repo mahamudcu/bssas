@@ -1,0 +1,34 @@
+<%= form_with(model: recent_event, local: true) do |form| %>
+  <% if recent_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recent_event.errors.count, "error") %> prohibited this recent_event from being saved:</h2>
+
+      <ul>
+      <% recent_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title,class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image,class: "form-control" %>
+  </div>
+
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description,class: "form-control" %>
+  </div>
+
+  <div class="card-action">
+    <%= form.submit 'Submit',class: 'btn btn-success' %>
+    <%= link_to 'Back', recent_events_path, class:"btn btn-danger" %>
+  </div>
+<% end %>
