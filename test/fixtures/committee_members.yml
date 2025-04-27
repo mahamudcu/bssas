@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  committee: one
+  committee_designation: one
+  added_by_id: 1
+  remove_by_id: 1
+  approve_by_id: 1
+  is_approved: false
+  description: MyText
+
+two:
+  user: two
+  committee: two
+  committee_designation: two
+  added_by_id: 1
+  remove_by_id: 1
+  approve_by_id: 1
+  is_approved: false
+  description: MyText

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  duration: 1
+  duration_date: 2025-04-27
+  stablish_date: 2025-04-27
+  clossing_date: 2025-04-27
+  active: false
+  committee_designation: one
+
+two:
+  title: MyString
+  description: MyText
+  duration: 1
+  duration_date: 2025-04-27
+  stablish_date: 2025-04-27
+  clossing_date: 2025-04-27
+  active: false
+  committee_designation: two

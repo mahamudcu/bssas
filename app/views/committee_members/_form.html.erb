@@ -1,0 +1,64 @@
+<%= form_with(model: committee_member, local: true) do |form| %>
+  <% if committee_member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(committee_member.errors.count, "error") %> prohibited this committee_member from being saved:</h2>
+
+      <ul>
+      <% committee_member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+    <div class="form-group">
+      <%= form.label :user_id, "Member" %><br>
+      <%= form.collection_select :user_id, User.all, :id,:name, prompt: "Select Member", class: "form-control" %>
+    </div>
+
+
+  <div class="form-group">
+    <%= form.label :committee_id, "Committee" %><br>
+    <%= form.collection_select :committee_id, Committee.all, :id,:title, prompt: "Select Committee", class: "form-control" %>
+  </div>
+
+
+  <div class="form-group">
+    <%= form.label :committee_designation_id, "Committee Designation" %><br>
+    <%= form.collection_select :committee_designation_id, CommitteeDesignation.all, :id,:title, prompt: "Select Committee Designation", class: "form-control" %>
+  </div>
+
+
+<!--  <div class="form-group">-->
+<!--    <%#= form.label :added_by_id, "Member" %><br>-->
+    <%#= form.collection_select :added_by_id, User.all, :id, :title, prompt: "Select Member", class: "form-control" %>
+<!--  </div>-->
+
+
+<!--  <div class="field">-->
+    <%#= form.label :remove_by_id %>
+    <%#= form.number_field :remove_by_id %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :approve_by_id %>
+    <%#= form.number_field :approve_by_id %>
+<!--  </div>-->
+
+  <div class="form-group">
+    <%= form.label :is_approved %>
+    <%= form.check_box :is_approved %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="card-action">
+    <%= form.submit 'Submit',class: 'btn btn-success' %>
+    <%= link_to 'Back', committee_members_path, class:"btn btn-danger" %>
+  </div>
+<% end %>

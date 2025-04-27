@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_26_183931) do
+ActiveRecord::Schema.define(version: 2025_04_27_084210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "committee_designations", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "committee_members", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "committee_id"
+    t.bigint "committee_designation_id"
+    t.integer "added_by_id"
+    t.integer "remove_by_id"
+    t.integer "approve_by_id"
+    t.boolean "is_approved"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["committee_designation_id"], name: "index_committee_members_on_committee_designation_id"
+    t.index ["committee_id"], name: "index_committee_members_on_committee_id"
+    t.index ["user_id"], name: "index_committee_members_on_user_id"
+  end
+
+  create_table "committees", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "duration"
+    t.date "duration_date"
+    t.date "stablish_date"
+    t.date "clossing_date"
+    t.boolean "active"
+    t.bigint "committee_designation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["committee_designation_id"], name: "index_committees_on_committee_designation_id"
+  end
 
   create_table "photo_galleries", force: :cascade do |t|
     t.string "title"
@@ -65,4 +102,8 @@ ActiveRecord::Schema.define(version: 2025_04_26_183931) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "committee_members", "committee_designations"
+  add_foreign_key "committee_members", "committees"
+  add_foreign_key "committee_members", "users"
+  add_foreign_key "committees", "committee_designations"
 end

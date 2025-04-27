@@ -1,0 +1,2 @@
+class CommitteeDesignation < ApplicationRecord
+end

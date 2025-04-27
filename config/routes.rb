@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :committee_members
+  resources :committees
+  resources :committee_designations
   resources :recent_events
   resources :photo_galleries
   resources :settings

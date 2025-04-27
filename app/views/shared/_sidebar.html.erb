@@ -253,6 +253,31 @@
         </li>
 
         <li class="nav-item">
+          <%= link_to committee_members_path do %>
+            <i class="fa fa-user-secret"></i>
+            <p>Committee Members</p>
+            <!--            <span class="badge badge-success"><%#= User.admins.count %></span>-->
+          <% end %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to committees_path do %>
+            <i class="fa fa-user-secret"></i>
+            <p>Committees</p>
+<!--            <span class="badge badge-success"><%#= User.admins.count %></span>-->
+          <% end %>
+        </li>
+
+
+        <li class="nav-item">
+          <%= link_to committee_designations_path do %>
+            <i class="fa fa-user-secret"></i>
+            <p>Committee Designations</p>
+            <!--            <span class="badge badge-success"><%#= User.admins.count %></span>-->
+          <% end %>
+        </li>
+
+        <li class="nav-item">
           <%= link_to recent_events_path do %>
             <i class="fa fa-calendar"></i>
             <p>Recent Events</p>
