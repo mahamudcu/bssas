@@ -246,22 +246,15 @@
         </li>
         <li class="nav-item">
           <%= link_to user_list_path do %>
-            <i class="fa fa-users"></i>
+            <i class="fa fa-user-secret"></i>
             <p>Management Users</p>
             <span class="badge badge-success"><%= User.admins.count %></span>
           <% end %>
         </li>
 
         <li class="nav-item">
-          <%= link_to settings_path do %>
-            <i class="fa fa-users"></i>
-            <p>Settings</p>
-            <span class="badge badge-success"></span>
-          <% end %>
-        </li>
-        <li class="nav-item">
           <%= link_to recent_events_path do %>
-            <i class="fa fa-users"></i>
+            <i class="fa fa-calendar"></i>
             <p>Recent Events</p>
             <span class="badge badge-success"></span>
           <% end %>
@@ -269,13 +262,19 @@
 
         <li class="nav-item">
           <%= link_to photo_galleries_path do %>
-            <i class="fa fa-users"></i>
+            <i class="fa fa-window-restore" aria-hidden="true"></i>
             <p>Photo Galleries</p>
             <span class="badge badge-success"></span>
           <% end %>
         </li>
 
-
+        <li class="nav-item">
+          <%= link_to settings_path do %>
+            <i class="fa fa-cog"></i>
+            <p>Settings</p>
+            <span class="badge badge-success"></span>
+          <% end %>
+        </li>
 
 <!--        <li class="nav-item active">-->
 <!--          <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">-->
