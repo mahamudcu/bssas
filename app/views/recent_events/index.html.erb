@@ -30,8 +30,8 @@
               <table class="table">
                 <thead>
                 <tr>
-                  <th>Title</th>
                   <th>Image</th>
+                  <th>Title</th>
                   <th>Description</th>
                   <th colspan="3"></th>
                 </tr>
@@ -40,8 +40,8 @@
                 <tbody>
                 <% @recent_events.each do |recent_event| %>
                   <tr>
+                    <td><%= image_tag(recent_event.image_url, style: 'height: 60px;') if recent_event.image.present? %></td>
                     <td><%= recent_event.title %></td>
-                    <td><%= recent_event.image %></td>
                     <td><%= recent_event.description %></td>
                     <td><%= link_to 'Show', recent_event %></td>
                     <td><%= link_to 'Edit', edit_recent_event_path(recent_event) %></td>

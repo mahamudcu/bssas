@@ -31,8 +31,8 @@
               <table class="table">
                 <thead>
                 <tr>
-                  <th>Title</th>
                   <th>Image</th>
+                  <th>Title</th>
                   <th>Description</th>
                   <th colspan="3"></th>
                 </tr>
@@ -41,8 +41,8 @@
                 <tbody>
                 <% @photo_galleries.each do |photo_gallery| %>
                   <tr>
+                    <td><%= image_tag(photo_gallery.image_url, style: 'height: 60px;') if photo_gallery.image.present? %></td>
                     <td><%= photo_gallery.title %></td>
-                    <td><%= photo_gallery.image %></td>
                     <td><%= photo_gallery.description %></td>
                     <td><%= link_to 'Show', photo_gallery %></td>
                     <td><%= link_to 'Edit', edit_photo_gallery_path(photo_gallery) %></td>
