@@ -64,3 +64,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'carrierwave', '~> 2.0'
+
+##for execjs error issue
+gem 'execjs'
+gem 'therubyracer'
