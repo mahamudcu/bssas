@@ -59,7 +59,8 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
-set :deploy_to, "/home/deployer/apps/bssas"
+# set :deploy_to, "/home/deployer/apps/bssas"
+set :deploy_to, "/home/deployer/apps/cucse"
 set :rails_env, "production"
 
 set :branch, 'production'
