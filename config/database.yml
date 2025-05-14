@@ -1,18 +1,33 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool:  5
-  username: postgres
-  password: postgres
-
+  adapter: mysql2
+  encoding: utf8
+  username: root
+  password: password
+  reconnect: true
+  host: localhost
 development:
-  <<: *default
-  database: bssas_test_development
+  adapter: mysql2
+  database: bssas_db
+  encoding: utf8
+  username: root
+  password: password
+  host: localhost
+#default: &default
+#  adapter: postgresql
+#  encoding: unicode
+#  pool:  5
+#  username: postgres
+#  password: postgres
 
-test:
-  <<: *default
-  database: bssas_test
+#development:
+#  <<: *default
+#  database: bssas_test_development
 
-production:
-  <<: *default
-  database: bssas_test_development
+#test:
+#  <<: *default
+#  database: bssas_test
+
+#production:
+#  <<: *default
+#  database: bssas_test_development
+

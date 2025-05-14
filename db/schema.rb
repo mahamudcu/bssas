@@ -12,17 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2025_04_27_084210) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "committee_designations", force: :cascade do |t|
+  create_table "committee_designations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "committee_members", force: :cascade do |t|
+  create_table "committee_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "committee_id"
     t.bigint "committee_designation_id"
@@ -38,7 +35,7 @@ ActiveRecord::Schema.define(version: 2025_04_27_084210) do
     t.index ["user_id"], name: "index_committee_members_on_user_id"
   end
 
-  create_table "committees", force: :cascade do |t|
+  create_table "committees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "duration"
@@ -52,7 +49,7 @@ ActiveRecord::Schema.define(version: 2025_04_27_084210) do
     t.index ["committee_designation_id"], name: "index_committees_on_committee_designation_id"
   end
 
-  create_table "photo_galleries", force: :cascade do |t|
+  create_table "photo_galleries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "image"
     t.text "description"
@@ -60,7 +57,7 @@ ActiveRecord::Schema.define(version: 2025_04_27_084210) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "recent_events", force: :cascade do |t|
+  create_table "recent_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "image"
     t.text "description"
@@ -68,7 +65,7 @@ ActiveRecord::Schema.define(version: 2025_04_27_084210) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "settings", force: :cascade do |t|
+  create_table "settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "logo"
     t.text "contact_address"
     t.text "aboutus"
@@ -78,7 +75,7 @@ ActiveRecord::Schema.define(version: 2025_04_27_084210) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name"
     t.string "age"
     t.string "phone"
