@@ -174,7 +174,7 @@
         <div class="row">
           <% PhotoGallery.all.each do |photo| %>
           <div class="col-md-3 pb-3">
-            <%= image_tag(photo.image_url, style: 'height: 200px') if photo.image.present? %>
+            <%= image_tag(photo.image_url, style: 'height: 200px; width: 90%') if photo.image.present? %>
             <%#= image_tag(photo.image_url,  class:"d-block w-100") if photo.image.present? %>
           </div>
          <% end %>
