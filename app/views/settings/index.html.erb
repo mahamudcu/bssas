@@ -22,7 +22,7 @@
       <div class="card">
         <div class="card-header">
           <div class="card-head-row card-tools-still-right# text-center">
-            <h4 class="card-title text-center#">  <%= "Not Found" unless @setting.present? %> </h4>
+
             <div class="card-tools">
               <!--              <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>-->
               <!--              <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>-->
@@ -33,32 +33,33 @@
 <!--            Enter Setting</p>-->
         </div>
         <div class="card-body">
+          <% if @setting.present? %>
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-6">
                 <p id="notice"><%= notice %></p>
                 <p>
                   <strong>Contact address:</strong>
-                  <%= @setting.contact_address %>
+                  <%= @setting&.contact_address %>
                 </p>
 
                 <p>
                   <strong>Aboutus:</strong>
-                  <%= @setting.aboutus %>
+                  <%= @setting&.aboutus %>
                 </p>
 
                 <p>
                   <strong>Mission:</strong>
-                  <%= @setting.mission %>
+                  <%= @setting&.mission %>
                 </p>
 
                 <p>
                   <strong>Vission:</strong>
-                  <%= @setting.vission %>
+                  <%= @setting&.vission %>
                 </p>
               </div>
               <div class="col-md-6">
-                <%= image_tag(@setting.logo_url, style: 'height: 200px;') if @setting.logo.present? %>
+                <%= image_tag(@setting&.logo_url, style: 'height: 200px;') if @setting&.logo.present? %>
               </div>
             </div>
 
@@ -95,6 +96,8 @@
 
             </div>
           </div>
+         <% end %>
+          <h4 class="card-title text-center#">  <%= "Setting Not Found" unless @setting.present? %> </h4>
         </div>
       </div>
     </div>
