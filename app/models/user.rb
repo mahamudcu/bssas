@@ -2,6 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   attr_accessor  :login
+  attr_accessor  :user_type
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,:authentication_keys => [:login]
 
@@ -10,10 +11,11 @@ class User < ApplicationRecord
 
   ROLE = {
     admin: 'admin',
-    super_admin: 'super_admin',
+    # super_admin: 'super_admin',
     student: 'student',
     x_student: 'x_student',
     alumni: 'alumni',
+    member: 'member',
     teacher: 'teacher',
   }
 
@@ -21,11 +23,30 @@ class User < ApplicationRecord
   scope :students, ->{ where(role: ROLE[:students]) }
   scope :alumnies, ->{ where(role: ROLE[:alumni]) }
   scope :ex_students, ->{ where(role: ROLE[:x_student]) }
+  scope :members, ->{ where(role: ROLE[:member]) }
   scope :request_students, -> { where("role IS NULL OR role = ?", ROLE[:student]) }
   scope :teachers, ->{ where(role: ROLE[:teacher]) }
 
+  before_save :set_role
+
   def is_admin?
     self.role == ROLE[:admin] || self.role == ROLE[:super_admin]
+  end
+
+  def set_role
+    if user_type.present?
+      case user_type
+      when 'Member'
+        self.role = ROLE[:member]
+      when 'Alumni'
+        self.role = ROLE[:alumni]
+      when 'Student'
+        self.role = ROLE[:student]
+      else
+        self.role = ROLE[:student]
+        # self.role = ROLE[:admin]
+      end
+    end
   end
 
   def self.find_for_database_authentication(warden_conditions)

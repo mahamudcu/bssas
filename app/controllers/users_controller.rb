@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   end
 
   def ex_students
-    @users = User.ex_students
+    @users = User.members
+    # @users = User.ex_students
   end
 
   def alumni
@@ -24,7 +25,9 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    p params[:type]
     @user = User.new
+    @user.user_type = params[:type]
   end
 
   # GET /users/1/edit
@@ -57,8 +60,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     p User::ROLE[:x_student]
+    p "@user.role "
+    p @user.role
     respond_to do |format|
       if @user.save
+        p "Save"
+        p @user.role
         format.html { redirect_to user_show_path(@user), notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else

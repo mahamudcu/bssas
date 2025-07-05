@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d76c59a-3eff-4a1a-9748-499c72855d10" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/config/deploy/production.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/deploy/production.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/adminJs/atlantis.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/javascripts/adminJs/atlantis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/adminJs/core/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/javascripts/adminJs/core/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/users_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/users_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shared/_sidebar.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_sidebar.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/_form.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/_form.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/_users.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/_users.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/ex_students.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/ex_students.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/new.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/users/request_student.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/users/request_student.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="bssas" />
+        <entry key="$PROJECT_DIR$" value="bssas_production" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,6 +70,7 @@
     &quot;RailsCreateViewFileDialog.DEFAULT_TEMPLATE&quot;: &quot;ERB File&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP&quot;: &quot;1751100121031&quot;,
     &quot;git-widget-placeholder&quot;: &quot;production&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -184,7 +196,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-RM-251.25410.120" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-RM-251.26927.47" />
       </set>
     </attachedChunks>
   </component>
@@ -216,6 +228,10 @@
       <workItem from="1745814839053" duration="29000" />
       <workItem from="1746340356158" duration="2902000" />
       <workItem from="1747206011768" duration="2528000" />
+      <workItem from="1747230610494" duration="1931000" />
+      <workItem from="1751100058231" duration="14054000" />
+      <workItem from="1751258613752" duration="21000" />
+      <workItem from="1751259490302" duration="20000" />
     </task>
     <servers />
   </component>
@@ -234,6 +250,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1747218631671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
+    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1751195400699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
   </component>
 </project>
