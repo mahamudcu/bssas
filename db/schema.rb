@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_27_084210) do
+ActiveRecord::Schema.define(version: 2025_07_06_094513) do
 
   create_table "committee_designations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title"
@@ -95,6 +95,12 @@ ActiveRecord::Schema.define(version: 2025_04_27_084210) do
     t.string "dob"
     t.string "role"
     t.boolean "is_active", default: false
+    t.string "batch"
+    t.string "string"
+    t.string "student_id"
+    t.string "section"
+    t.string "current_company"
+    t.string "present_address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     @user.password= SecureRandom.alphanumeric(8)
     @user.role= User::ROLE[:student]
     respond_to do |format|
-      if @user#.save
+      if @user.save
         flash[:notice] = 'Registration request successful submit!'
         format.html { redirect_to root_path }
       else
@@ -31,7 +31,7 @@ class HomeController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :phone)
+    params.require(:user).permit(:name, :email, :phone,:batch,:student_id,:current_company)
   end
 
   end

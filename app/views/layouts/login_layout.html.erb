@@ -2,8 +2,8 @@
 <!--<html lang="en">-->
 <!--<head>-->
 <!--  -- Required meta tags -->
-  <%#= csrf_meta_tags %>
-  <%#= csp_meta_tag %>
+<%#= csrf_meta_tags %>
+<%#= csp_meta_tag %>
 <!--  <meta charset="utf-8">-->
 <!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
 <!--  <meta name="keywords" content="Bootstrap, Landing page, Template, Business, Service">-->
@@ -16,16 +16,16 @@
 <!--  <link rel="shortcut icon" href="../images/img/2.png" type="image/png">-->
 <!--  <-- Bootstrap CSS -->
 
-  <%#= stylesheet_link_tag 'landing_page', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%#= stylesheet_link_tag 'landing_page', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 <!--</head>-->
 
 <!--<body>-->
 <!--<header id="home" class="hero-area">-->
-  <%#= render 'shared/landing_top' %>
+<%#= render 'shared/landing_top' %>
 <!--</header>-->
 <!--<div style="margin-top: 40px;">-->
-  <%#= yield %>
+<%#= yield %>
 <!--</div>-->
 
 <%#= render 'shared/landing_footer' %>
@@ -49,97 +49,184 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
   <style>
-  /* Coded with love by Mutiullah Samim */
-  body,
-  html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #60a3bc !important;
-  }
-  .user_card {
-  height: 400px;
-  width: 350px;
-  margin-top: auto;
-  margin-bottom: auto;
-  background: #f39c12;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 5px;
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-  }
-  .brand_logo_container {
-  position: absolute;
-  height: 170px;
-  width: 170px;
-  top: -75px;
-  border-radius: 50%;
-  background: #60a3bc;
-  padding: 5px;
-  text-align: center;
-  }
-  .brand_logo {
-  height: 160px;
-  width: 165px;
-  border-radius: 50%;
-  border: 2px solid white;
-  }
-  .form_container {
-  margin-top: 100px;
-  }
-  .login_btn {
-  width: 100%;
-  background: #c0392b !important;
-  color: white !important;
-  }
-  .login_btn:focus {
-  box-shadow: none !important;
-  outline: 0px !important;
-  }
-  .login_container {
-  padding: 0 2rem;
-  }
-  .input-group-text {
-  background: #c0392b !important;
-  color: white !important;
-  border: 0 !important;
-  border-radius: 0.25rem 0 0 0.25rem !important;
-  }
-  .input_user,
-  .input_pass:focus {
-  box-shadow: none !important;
-  outline: 0px !important;
-  }
-  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-  background-color: #c0392b !important;
-  }
+      * {
+          box-sizing: border-box;
+      }
+
+      body {
+          margin: 0;
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #6a11cb, #2575fc);
+          animation: fadeIn 1s ease-in;
+      }
+
+      .form_wrapper {
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+          animation: slideIn 1s ease;
+      }
+
+      .form_container {
+          background: #ffffff;
+          border-radius: 15px;
+          padding: 50px 40px 40px;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 500px;
+          position: relative;
+          animation: popIn 0.6s ease-out;
+      }
+
+      .logo {
+          position: absolute;
+          top: -50px;
+          left: 50%;
+          transform: translateX(-50%);
+          border: 5px solid white;
+          border-radius: 50%;
+          background-color: white;
+          padding: 5px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          animation: popIn 0.6s ease-out;
+      }
+
+      .title_container h2 {
+          text-align: center;
+          margin-bottom: 25px;
+          color: #333;
+          margin-top: 40px;
+      }
+
+      .input_field {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          background: #f1f1f1;
+          padding: 10px 15px;
+          border-radius: 8px;
+      }
+
+      .input_field span {
+          margin-right: 10px;
+          color: #6a11cb;
+          font-size: 18px;
+      }
+
+      .input_field input {
+          border: none;
+          background: transparent;
+          width: 100%;
+          outline: none;
+          font-size: 16px;
+          color: #333;
+      }
+
+      .button {
+          width: 100%;
+          margin-top: 20px;
+          padding: 12px;
+          background: linear-gradient(135deg, #6a11cb, #2575fc);
+          color: white;
+          border: none;
+          font-weight: bold;
+          font-size: 16px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      .button:hover {
+          background: linear-gradient(135deg, #5b0ecc, #1c60f0);
+          transform: translateY(-2px);
+      }
+
+      @keyframes fadeIn {
+          from {
+              opacity: 0;
+          }
+          to {
+              opacity: 1;
+          }
+      }
+
+      @keyframes slideIn {
+          from {
+              transform: translateY(50px);
+              opacity: 0;
+          }
+          to {
+              transform: translateY(0);
+              opacity: 1;
+          }
+      }
+
+      @keyframes popIn {
+          from {
+              transform: scale(0.95);
+              opacity: 0;
+          }
+          to {
+              transform: scale(1);
+              opacity: 1;
+          }
+      }
+
+      /* Responsive rules */
+      @media screen and (max-width: 768px) {
+          .form_container {
+              padding: 40px 25px 30px;
+          }
+
+          .title_container h2 {
+              font-size: 20px;
+              margin-top: 30px;
+          }
+
+          .input_field {
+              padding: 8px 12px;
+          }
+
+          .input_field input {
+              font-size: 15px;
+          }
+
+          .button {
+              font-size: 15px;
+          }
+
+          .logo img {
+              width: 80px !important;
+          }
+      }
+
+      @media screen and (max-width: 480px) {
+          .input_field {
+              flex-direction: row;
+          }
+
+          .input_field span {
+              font-size: 16px;
+          }
+
+          .input_field input {
+              font-size: 14px;
+          }
+
+          .logo {
+              top: -45px;
+          }
+      }
   </style>
 </head>
-<!--Coded with love by Mutiullah Samim-->
+
 <body>
-<div class="container h-100">
-  <div class="d-flex justify-content-center h-100">
-    <div class="user_card">
-      <div class="d-flex justify-content-center">
-        <div class="brand_logo_container">
-            <%= image_tag('img/bssas.png',class:"brand_logo") %>
-<!--          <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">-->
-        </div>
-      </div>
-      <div class="d-flex justify-content-center form_container">
-        <%= yield %>
-
-      </div>
-
-
-    </div>
-  </div>
+<div class="container">
+  <%= yield %>
 </div>
 </body>
 </html>

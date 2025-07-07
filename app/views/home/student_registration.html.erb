@@ -1,29 +1,52 @@
-<div class="m-1">
-  <%= form_for @user,  url: submit_registration_path  do |f| %>
-    <%#= render "devise/shared/error_messages", resource: @user %>
-    <h4>Sign up</h4>
 
-    <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name %>
+
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="logo">
+      <%= image_tag("logo.png", {:style => "width:100px;"}) %>
     </div>
-
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div class="title_container">
+      <h2>Registration Form</h2>
     </div>
+    <%= form_for @user, url: submit_registration_path do |f| %>
 
-    <div class="field">
-      <%= f.label :phone %><br />
-      <%= f.text_field :phone %>
-    </div>
+      <div class="input_field">
+        <span><i class="fa fa-user"></i></span>
+        <%= f.text_field :name, placeholder: "Full Name", required: true %>
+      </div>
 
+      <div class="input_field">
+        <span><i class="fa fa-envelope"></i></span>
+        <%= f.email_field :email, placeholder: "Email", required: true %>
+      </div>
 
-    <div class="actions">
-      <%= f.submit "Sign up" %>
-    </div>
+      <div class="input_field">
+        <span><i class="fa fa-phone"></i></span>
+        <%= f.text_field :phone, placeholder: "Phone", required: true %>
+      </div>
 
+      <div class="input_field">
+        <span><i class="fa fa-graduation-cap"></i></span>
+        <%= f.number_field :batch, placeholder: "Batch", required: true %>
+      </div>
 
-  <% end %>
+      <div class="input_field">
+        <span><i class="fa fa-id-card"></i></span>
+        <%= f.number_field :student_id, placeholder: "Student ID", required: true %>
+      </div>
 
+      <div class="input_field">
+        <span><i class="fa fa-building"></i></span>
+        <%= f.text_field :current_company, placeholder: "Current Company" %>
+      </div>
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-map-marker"></i></span>-->
+        <%#= f.text_field :present_address, placeholder: "Present Address" %>
+<!--      </div>-->
+
+      <%= f.submit "Register", class: "button" %>
+
+    <% end %>
+  </div>
 </div>
