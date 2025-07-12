@@ -51,3 +51,4 @@
 .byebug_history
 config/spring.rb
 vendor/cache/
+.idea/workspace.xml
