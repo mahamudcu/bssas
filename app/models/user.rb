@@ -33,6 +33,18 @@ class User < ApplicationRecord
     self.role == ROLE[:admin] || self.role == ROLE[:super_admin]
   end
 
+  def is_full_access?
+    self.role == ROLE[:admin] || self.role == ROLE[:super_admin]
+  end
+
+  def is_edit_access?
+    self.role == ROLE[:member] || is_full_access?
+  end
+
+  def is_show_access?
+    self.role == ROLE[:alumni] || is_edit_access?
+  end
+
   def set_role
     if user_type.present?
       case user_type

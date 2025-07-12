@@ -8,8 +8,8 @@
         <div class="info">
           <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
-									<%= current_user.name.present? ? current_user.name : 'Empty' %>
-									<span class="user-level">Administrator</span>
+									<%= current_user.present? ? current_user.name : 'Empty' %>
+									<span class="user-level"><%= current_user&.role ? current_user&.role&.capitalize : 'User' %></span>
 									<span class="caret"></span>
 								</span>
           </a>
@@ -20,17 +20,17 @@
               <li>
                 <%= link_to profile_path do %>
                   <span class="link-collapse">My Profile</span>
-                <% end %>
+                <% end if current_user.is_show_access? %>
               </li>
               <li>
                 <%= link_to edit_profile_path do %>
                   <span class="link-collapse">Edit Profile</span>
-                <% end %>
+                <% end if current_user.is_show_access? %>
               </li>
               <li>
-                <a href="#settings">
+                <%= link_to settings_path do %>
                   <span class="link-collapse">Settings</span>
-                </a>
+                <% end if current_user.is_edit_access? %>
               </li>
             </ul>
           </div>
@@ -223,52 +223,55 @@
         </li>
 
         <li class="nav-item submenu">
-          <a data-toggle="collapse" href="#submenu">
-            <i class="fa fa-users"></i>
-            <p>Members</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="submenu">
-            <ul class="nav nav-collapse">
-<!--              <li>-->
+          <% if current_user.is_show_access? %>
+            <a data-toggle="collapse" href="#submenu">
+              <i class="fa fa-users"></i>
+              <p>Members</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="submenu">
+              <ul class="nav nav-collapse">
+                <!--              <li>-->
                 <%#= link_to ex_students_path do %>
-<!--                  <span class="sub-item">Tab 1</span>-->
+                <!--                  <span class="sub-item">Tab 1</span>-->
                 <%# end %>
-<!--              </li>-->
-              <li >
-                <%= link_to ex_students_path do %>
-<!--                  <i class="fa fa-users"></i>-->
-                  <p>Members</p>
-                  <span class="badge badge-success"><%= User.members.count %></span>
-                <% end %>
-              </li>
+                <!--              </li>-->
+                <li >
+                  <%= link_to ex_students_path do %>
+                    <!--                  <i class="fa fa-users"></i>-->
+                    <p>Members</p>
+                    <span class="badge badge-success"><%= User.members.count %></span>
+                  <% end if current_user.is_edit_access? %>
+                </li>
 
-              <li>
-                <%= link_to alumni_path do %>
-<!--                  <i class="fa fa-users"></i>-->
-                  <p>Alumni List</p>
-                  <span class="badge badge-success"><%= User.alumnies.count %></span>
-                <% end %>
-              </li>
-              <li class="nav-item#">
-                <%= link_to request_student_path do %>
-<!--                  <i class="fa fa-users"></i>-->
-                  <p>Request Students</p>
-                  <span class="badge badge-success"><%= User.request_students.count %></span>
-                <% end %>
-              </li>
-              <li class="nav-item#">
-                <%= link_to user_list_path do %>
-<!--                  <i class="fa fa-user-secret"></i>-->
-                  <p>Management Users</p>
-                  <span class="badge badge-success"><%= User.admins.count %></span>
-                <% end %>
-              </li>
-            </ul>
-          </div>
+                <li>
+                  <%= link_to alumni_path do %>
+                    <!--                  <i class="fa fa-users"></i>-->
+                    <p>Alumni List</p>
+                    <span class="badge badge-success"><%= User.alumnies.count %></span>
+                  <% end if current_user.is_show_access? %>
+                </li>
+                <li class="nav-item#">
+                  <%= link_to request_student_path do %>
+                    <!--                  <i class="fa fa-users"></i>-->
+                    <p>Request Students</p>
+                    <span class="badge badge-success"><%= User.request_students.count %></span>
+                  <% end if current_user.is_edit_access? %>
+                </li>
+                <li class="nav-item#">
+                  <%= link_to user_list_path do %>
+                    <!--                  <i class="fa fa-user-secret"></i>-->
+                    <p>Management Users</p>
+                    <span class="badge badge-success"><%= User.admins.count %></span>
+                  <% end if current_user.is_edit_access?%>
+                </li>
+              </ul>
+            </div>
+          <% end  %>
         </li>
 
         <li class="nav-item">
+          <% if current_user.is_edit_access? %>
           <a data-toggle="collapse" href="#submenu2">
             <i class="fa fa-user-secret"></i>
             <p>Committee</p>
@@ -302,6 +305,7 @@
               </li>
             </ul>
           </div>
+            <% end %>
         </li>
 
 
@@ -311,7 +315,7 @@
             <i class="fa fa-calendar"></i>
             <p>Recent Events</p>
             <span class="badge badge-success"></span>
-          <% end %>
+          <% end if current_user.is_edit_access? %>
         </li>
 
         <li class="nav-item">
@@ -319,7 +323,7 @@
             <i class="fa fa-window-restore" aria-hidden="true"></i>
             <p>Photo Galleries</p>
             <span class="badge badge-success"></span>
-          <% end %>
+          <% end if current_user.is_edit_access? %>
         </li>
 
         <li class="nav-item">
@@ -327,7 +331,7 @@
             <i class="fa fa-cog"></i>
             <p>Settings</p>
             <span class="badge badge-success"></span>
-          <% end %>
+          <% end if current_user.is_edit_access? %>
         </li>
 
 <!--        <li class="nav-item active">-->
