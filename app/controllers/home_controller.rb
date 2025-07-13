@@ -8,7 +8,8 @@ class HomeController < ApplicationController
 
   def student_registration
     @user = User.new
-    render layout: 'login_layout'
+    render layout: 'resistration_layout'
+    # render layout: 'login_layout'
   end
 
   def submit_registration

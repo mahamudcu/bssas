@@ -7,7 +7,7 @@
   <nav class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar" style="background: cornflowerblue">
     <div class="container">
       <a href="/" class="navbar-brand">
-        <%= image_tag('img/bssas.png',width: '80px') unless @setting.present? && @setting.logo.present? %>
+        <%= image_tag('logo.png',width: '80px') unless @setting.present? && @setting.logo.present? %>
         <%= image_tag(@setting.logo.url,width: '80px') if @setting.present? && @setting.logo.present? %>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="#home">Home</a>
+            <a class="nav-link page-scroll" href="/">Home</a>
           </li>
 
           <li class="nav-item">
@@ -34,12 +34,12 @@
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#gallary">Gallary</a>
           </li>
-          <!--          <li class="nav-item">-->
-          <!--            <a class="nav-link page-scroll" href="#showcase">Showcase</a>-->
-          <!--          </li>-->
-          <!--          <li class="nav-item">-->
-          <!--            <a class="nav-link page-scroll" href="#pricing">Pricing</a>-->
-          <!--          </li>-->
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#commitee">Committee</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#pricing">Previous Committee</a>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#contact">Contact</a>
@@ -50,14 +50,14 @@
           <li class="nav-item">
             <%if user_signed_in? %>
               <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link page-scroll', "data-toggle" => "modal", "data-target" => "#logoutModal" do %>
-                <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+<!--                <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>-->
                 Logout
               <% end %>
               <%#= link_to "Sign out", destroy_user_session_path, :method => :delete %>
             <%else %>
 
               <%= link_to new_user_session_path,  class: 'nav-link page-scroll' do %>
-                <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+<!--                <i class="fa# fa-sign-out# fa-sm fa-fw mr-2# text-gray-400#"></i>-->
                 login
               <% end %>
             <%end %>

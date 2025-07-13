@@ -1,52 +1,173 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-lg border-0 rounded-lg" style="border-radius: 1rem;">
+<!--      <div class="card shadow-lg border-0 rounded rounded-lg with-jolchap" style="border-radius: 1rem;">-->
 
+        <!-- Watermark logo background -->
+        <div class="jolchap-background"></div>
 
-<div class="form_wrapper">
-  <div class="form_container">
-    <div class="logo">
-      <%= image_tag("logo.png", {:style => "width:100px;"}) %>
+        <div class="card-body p-4 jolchap-wrapper">
+
+          <div class="text-center mb-4">
+            <%= image_tag("logo.png", style: "width: 100px;", class: "img-fluid rounded-circle border border-white shadow-sm") %>
+          </div>
+
+          <h4 class="text-center mb-4 font-weight-bold text-primary">Registration Form</h4>
+
+          <%= form_for @user, url: submit_registration_path do |f| %>
+
+            <div class="form-group">
+              <label><i class="fa fa-user mr-2 text-primary"></i> Full Name*</label>
+              <%= f.text_field :name, class: "form-control form-control-lg", placeholder: "Full Name", required: true %>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa fa-envelope mr-2 text-primary"></i> Email*</label>
+              <%= f.email_field :email, class: "form-control form-control-lg", placeholder: "Email", required: true %>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa fa-phone mr-2 text-primary"></i> Phone*</label>
+              <%= f.text_field :phone, class: "form-control form-control-lg", placeholder: "Phone", required: true %>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa fa-graduation-cap mr-2 text-primary"></i> Batch*</label>
+              <%= f.number_field :batch, class: "form-control form-control-lg", placeholder: "Batch", required: true %>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa fa-id-card mr-2 text-primary"></i> Student ID*</label>
+              <%= f.number_field :student_id, class: "form-control form-control-lg", placeholder: "Student ID", required: true %>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa fa-building mr-2 text-primary"></i> Current Company(optional)</label>
+              <%= f.text_field :current_company, class: "form-control form-control-lg", placeholder: "Current Company" %>
+            </div>
+
+            <div class="form-group mt-4">
+              <%= f.submit "Register", class: "btn btn-primary button1 btn-lg btn-block font-weight-bold rounded-pill" %>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
     </div>
-    <div class="title_container">
-      <h2>Registration Form</h2>
-    </div>
-    <%= form_for @user, url: submit_registration_path do |f| %>
+  </div>
+</div>
 
-      <div class="input_field">
-        <span><i class="fa fa-user"></i></span>
-        <%= f.text_field :name, placeholder: "Full Name", required: true %>
-      </div>
 
-      <div class="input_field">
-        <span><i class="fa fa-envelope"></i></span>
-        <%= f.email_field :email, placeholder: "Email", required: true %>
-      </div>
 
-      <div class="input_field">
-        <span><i class="fa fa-phone"></i></span>
-        <%= f.text_field :phone, placeholder: "Phone", required: true %>
-      </div>
+<!--<div class="container py-5" style="margin-bottom: 2%;margin-top: 5%">-->
+<!--  <div class="row justify-content-center">-->
+<!--    <div class="col-md-10 col-lg-8">-->
+<!--      <div class="card shadow-lg border-0 rounded-lg" style="border-radius: 1rem;">-->
+<!--        <div class="card-body p-4">-->
 
-      <div class="input_field">
-        <span><i class="fa fa-graduation-cap"></i></span>
-        <%= f.number_field :batch, placeholder: "Batch", required: true %>
-      </div>
+<!--          <div class="text-center mb-4">-->
+            <%#= image_tag("logo.png", style: "width: 100px;", class: "img-fluid rounded-circle border border-white shadow-sm") %>
+<!--          </div>-->
 
-      <div class="input_field">
-        <span><i class="fa fa-id-card"></i></span>
-        <%= f.number_field :student_id, placeholder: "Student ID", required: true %>
-      </div>
+<!--          <h4 class="text-center mb-4 font-weight-bold text-primary">Registration Form</h4>-->
 
-      <div class="input_field">
-        <span><i class="fa fa-building"></i></span>
-        <%= f.text_field :current_company, placeholder: "Current Company" %>
-      </div>
+          <%#= form_for @user, url: submit_registration_path do |f| %>
+
+<!--            <div class="form-group">-->
+<!--              <label><i class="fa fa-user mr-2 text-primary"></i> Full Name</label>-->
+              <%#= f.text_field :name, class: "form-control form-control-lg", placeholder: "Full Name", required: true %>
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label><i class="fa fa-envelope mr-2 text-primary"></i> Email</label>-->
+              <%#= f.email_field :email, class: "form-control form-control-lg", placeholder: "Email", required: true %>
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label><i class="fa fa-phone mr-2 text-primary"></i> Phone</label>-->
+              <%#= f.text_field :phone, class: "form-control form-control-lg", placeholder: "Phone", required: true %>
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label><i class="fa fa-graduation-cap mr-2 text-primary"></i> Batch</label>-->
+              <%#= f.number_field :batch, class: "form-control form-control-lg", placeholder: "Batch", required: true %>
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label><i class="fa fa-id-card mr-2 text-primary"></i> Student ID</label>-->
+              <%#= f.number_field :student_id, class: "form-control form-control-lg", placeholder: "Student ID", required: true %>
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label><i class="fa fa-building mr-2 text-primary"></i> Current Company</label>-->
+              <%#= f.text_field :current_company, class: "form-control form-control-lg", placeholder: "Current Company" %>
+<!--            </div>-->
+
+            <%# Optional Address Field %>
+            <%#
+            <div class="form-group">
+              <label><i class="fa fa-map-marker mr-2 text-primary"></i> Present Address</label>
+              <%= f.text_field :present_address, class: "form-control form-control-lg", placeholder: "Present Address" %>
+<!--            </div>-->
+<!--            <div class="form-group mt-4">-->
+              <%#= f.submit "Register", class: "btn btn-primary btn-lg btn-block font-weight-bold rounded-pill" %>
+<!--            </div>-->
+          <%# end %>
+<!--          </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--<div class="form_wrapper">-->
+<!--  <div class="form_container">-->
+<!--    <div class="logo">-->
+      <%#= image_tag("logo.png", {:style => "width:100px;"}) %>
+<!--    </div>-->
+<!--    <div class="title_container">-->
+<!--      <h2>Registration Form</h2>-->
+<!--    </div>-->
+    <%#= form_for @user, url: submit_registration_path do |f| %>
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-user"></i></span>-->
+        <%#= f.text_field :name, placeholder: "Full Name", required: true %>
+<!--      </div>-->
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-envelope"></i></span>-->
+        <%#= f.email_field :email, placeholder: "Email", required: true %>
+<!--      </div>-->
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-phone"></i></span>-->
+        <%#= f.text_field :phone, placeholder: "Phone", required: true %>
+<!--      </div>-->
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-graduation-cap"></i></span>-->
+        <%#= f.number_field :batch, placeholder: "Batch", required: true %>
+<!--      </div>-->
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-id-card"></i></span>-->
+        <%#= f.number_field :student_id, placeholder: "Student ID", required: true %>
+<!--      </div>-->
+
+<!--      <div class="input_field">-->
+<!--        <span><i class="fa fa-building"></i></span>-->
+        <%#= f.text_field :current_company, placeholder: "Current Company" %>
+<!--      </div>-->
 
 <!--      <div class="input_field">-->
 <!--        <span><i class="fa fa-map-marker"></i></span>-->
         <%#= f.text_field :present_address, placeholder: "Present Address" %>
 <!--      </div>-->
 
-      <%= f.submit "Register", class: "button" %>
+      <%#= f.submit "Register", class: "button" %>
 
-    <% end %>
-  </div>
-</div>
+    <%# end %>
+<!--  </div>-->
+<!--</div>-->
