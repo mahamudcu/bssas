@@ -19,34 +19,49 @@
             <a class="nav-link page-scroll" href="/">Home</a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link page-scroll" href="#recent-activity">Recent Activity</a>
-          </li>
 
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#about-us">About Us</a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link page-scroll" href="#missin-vission">Mission & Vission</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle page-scroll" href="#" id="exploreMenu" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Mission & Vision
+            </a>
+            <div class="dropdown-menu" aria-labelledby="exploreMenu">
+              <a class="dropdown-item page-scroll" href="#missin">Mission</a>
+              <a class="dropdown-item page-scroll" href="#vission">Vision</a>
+            </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link page-scroll" href="#gallary">Gallary</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle page-scroll" href="#" id="exploreMenu" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Activity
+            </a>
+            <div class="dropdown-menu" aria-labelledby="exploreMenu">
+              <a class="dropdown-item page-scroll" href="#recent-activity">Recent Activity</a>
+              <a class="dropdown-item page-scroll" href="#gallary">Gallary</a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link page-scroll" href="#commitee">Committee</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link page-scroll" href="#pricing">Previous Committee</a>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle page-scroll" href="#" id="exploreMenu" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Committee
+            </a>
+            <div class="dropdown-menu" aria-labelledby="exploreMenu">
+              <a class="dropdown-item page-scroll" href="#commitee">Committee</a>
+              <a class="dropdown-item page-scroll" href="#commitee">Previous Committee</a>
+            </div>
           </li>
 
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#contact">Contact</a>
           </li>
-          <!--          <li class="nav-item">-->
-          <!--            <a class="nav-link page-scroll" href="/users">Users</a>-->
-          <!--          </li>-->
+
           <li class="nav-item">
             <%if user_signed_in? %>
               <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link page-scroll', "data-toggle" => "modal", "data-target" => "#logoutModal" do %>

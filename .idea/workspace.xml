@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9d76c59a-3eff-4a1a-9748-499c72855d10" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shared/_landing_top.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shared/_landing_top.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +60,7 @@
     "RailsCreateViewFileDialog.DEFAULT_TEMPLATE": "ERB File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP": "1751705988570",
+    "com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP": "1752814812321",
     "git-widget-placeholder": "production",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -222,6 +223,7 @@
       <workItem from="1751258613752" duration="21000" />
       <workItem from="1751259490302" duration="20000" />
       <workItem from="1751705929609" duration="17370000" />
+      <workItem from="1752814753393" duration="1178000" />
     </task>
     <servers />
   </component>
@@ -240,6 +242,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1751795315245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
+    <SUITE FILE_PATH="coverage/bssas@Development__bssas.rcov" NAME="Development: bssas Coverage Results" MODIFIED="1752814985163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="bssas" />
   </component>
 </project>
