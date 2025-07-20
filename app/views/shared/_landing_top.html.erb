@@ -7,8 +7,9 @@
   <nav class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar" style="background: cornflowerblue">
     <div class="container">
       <a href="/" class="navbar-brand">
-        <%= image_tag('logo.png',width: '80px') unless @setting.present? && @setting.logo.present? %>
-        <%= image_tag(@setting.logo.url,width: '80px') if @setting.present? && @setting.logo.present? %>
+        <%= image_tag('logo.webp',width: '80px')%>
+        <%#= image_tag('logo.png',width: '80px') unless @setting.present? && @setting.logo.present? %>
+        <%#= image_tag(@setting.logo.url,width: '80px') if @setting.present? && @setting.logo.present? %>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <i class="lni-menu"></i>
@@ -16,12 +17,13 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="/">Home</a>
+            <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
 
 
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="#about-us">About Us</a>
+            <%= link_to "About Us", current_page?(root_path) ? "#about-us" : root_path(anchor: 'about-us'), class: "nav-link page-scroll" %>
+            <!--            <a class="nav-link page-scroll" href="#about-us">About Us</a>-->
           </li>
 
           <li class="nav-item dropdown">
@@ -30,8 +32,10 @@
               Mission & Vision
             </a>
             <div class="dropdown-menu" aria-labelledby="exploreMenu">
-              <a class="dropdown-item page-scroll" href="#missin">Mission</a>
-              <a class="dropdown-item page-scroll" href="#vission">Vision</a>
+              <%= link_to "Mission", current_page?(root_path) ? "#missin" : root_path(anchor: 'missin'), class: "dropdown-item page-scroll" %>
+              <%= link_to "Vision", current_page?(root_path) ? "#missin" : root_path(anchor: 'missin'), class: "dropdown-item page-scroll" %>
+<!--              <a class="dropdown-item page-scroll" href="#missin">Mission</a>-->
+<!--              <a class="dropdown-item page-scroll" href="#vission">Vision</a>-->
             </div>
           </li>
 
@@ -41,8 +45,8 @@
               Activity
             </a>
             <div class="dropdown-menu" aria-labelledby="exploreMenu">
-              <a class="dropdown-item page-scroll" href="#recent-activity">Recent Activity</a>
-              <a class="dropdown-item page-scroll" href="#gallary">Gallary</a>
+              <%= link_to "Recent Activity", current_page?(root_path) ? "#recent-activity" : root_path(anchor: 'recent-activity'), class: "dropdown-item page-scroll" %>
+              <%= link_to "Gallary", current_page?(root_path) ? "#gallary" : root_path(anchor: 'gallary'), class: "dropdown-item page-scroll" %>
             </div>
           </li>
 
@@ -53,13 +57,13 @@
               Committee
             </a>
             <div class="dropdown-menu" aria-labelledby="exploreMenu">
-              <a class="dropdown-item page-scroll" href="#commitee">Committee</a>
-              <a class="dropdown-item page-scroll" href="#commitee">Previous Committee</a>
+              <%= link_to "Committee", current_page?(root_path) ? "#commitee" : root_path(anchor: 'commitee'),  class: "dropdown-item page-scroll" %>
+              <%= link_to "Previous Committee",current_page?(root_path) ? "#commitee" : root_path(anchor: 'commitee'), class: "dropdown-item page-scroll" %>
             </div>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="#contact">Contact</a>
+            <%= link_to "Contact", current_page?(root_path) ? "#contact" : root_path(anchor: 'contact'), class: "nav-link page-scroll" %>
           </li>
 
           <li class="nav-item">
@@ -84,3 +88,20 @@
   </nav>
 
 <!-- Header Section End -->
+<script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('a.page-scroll[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70, // adjust navbar height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+
+</script>
