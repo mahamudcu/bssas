@@ -24,7 +24,8 @@ class User < ApplicationRecord
   scope :alumnies, ->{ where(role: ROLE[:alumni]) }
   scope :ex_students, ->{ where(role: ROLE[:x_student]) }
   scope :members, ->{ where(role: ROLE[:member]) }
-  scope :request_students, -> { where("role IS NULL OR role = ?", ROLE[:student]) }
+  scope :request_students, -> { where("role = ?", ROLE[:student]) }
+  # scope :request_students, -> { where("role IS NULL OR role = ?", ROLE[:student]) }
   scope :teachers, ->{ where(role: ROLE[:teacher]) }
 
   before_save :set_role

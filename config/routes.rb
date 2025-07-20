@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post 'submit_registration', to: 'home#submit_registration', as: :submit_registration
   get 'edit_profile', to: 'users#edit_profile', as: :edit_profile
    patch 'update_profile', to: 'users#update_profile', as: :update_profile
+   patch 'make_as_alumni', to: 'users#make_as_alumni', as: :make_as_alumni
   # get '/', to: 'home#landing_page', as: :landing_page
   root 'home#landing_page'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

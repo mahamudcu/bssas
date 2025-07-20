@@ -44,12 +44,22 @@ class UsersController < ApplicationController
 
   def update_profile
     @user = User.find_by_id(profile_params[:id])
-    p '>>>>>>>>>>'
-    p User::ROLE[:x_student]
-    p @user
     respond_to do |format|
       if @user.update(profile_params)
         format.html { redirect_to profile_path, notice: "Profile was successfully updated." }
+      else
+        format.html { render :edit_profile, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def make_as_alumni
+    @user = User.find_by_id(params[:id])
+    @user.role = User::ROLE[:alumni]
+    @user.is_active = true
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to request_student_path, notice: "Profile was successfully updated." }
       else
         format.html { render :edit_profile, status: :unprocessable_entity }
       end
