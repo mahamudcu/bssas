@@ -59,14 +59,20 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    p User::ROLE[:x_student]
-    p "@user.role "
-    p @user.role
     respond_to do |format|
       if @user.save
-        p "Save"
-        p @user.role
-        format.html { redirect_to user_show_path(@user), notice: "User was successfully created." }
+        format.html {
+          if @user.role == User::ROLE[:member]
+            redirect_to ex_students_path, notice: "User was successfully created."
+          elsif @user.role == User::ROLE[:alumni]
+            redirect_to alumni_path, notice: "User was successfully created."
+          elsif @user.role == User::ROLE[:student]
+            redirect_to request_student_path, notice: "User was successfully created."
+          else
+            redirect_to user_list_path, notice: "User was successfully created."
+          end
+
+        }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -95,7 +101,17 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to user_list_path, notice: "User was successfully destroyed." }
+      format.html {
+        if @user.role == User::ROLE[:member]
+          redirect_to ex_students_path, notice: "User was successfully destroyed."
+        elsif @user.role == User::ROLE[:alumni]
+          redirect_to alumni_path, notice: "User was successfully destroyed."
+        elsif @user.role == User::ROLE[:student]
+          redirect_to request_student_path, notice: "User was successfully destroyed."
+        else
+          redirect_to user_list_path, notice: "User was successfully destroyed."
+        end
+      }
       format.json { head :no_content }
     end
   end
@@ -108,7 +124,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :age, :phone,:email,:password,:password_confirmation,:dob,:image,:role,:is_active)
+      params.require(:user).permit(:user_type,:name, :age, :phone,:email,:password,:password_confirmation,:dob,:image,:role,:is_active)
     end
 
   def profile_params
