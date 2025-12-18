@@ -93,4 +93,10 @@ class User < ApplicationRecord
   def self.find_record login
     where(["phone = :value OR email = :value", {value: login}]).first
   end
+
+  def send_mail
+    UserMailer.welcome_email(self).deliver_now
+    # UserMailer.welcome_email(@user).deliver_later
+  end
+
 end
