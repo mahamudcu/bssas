@@ -63,7 +63,8 @@
 set :deploy_to, "/home/deployer/apps/cucse"
 set :rails_env, "production"
 
-set :branch, 'production'
+set :branch, 'prod2'
+# set :branch, 'production'
 
 server '209.38.148.149',
        :user => 'deployer',
