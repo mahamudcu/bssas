@@ -3,6 +3,53 @@ class HomeController < ApplicationController
 
   # GET /users or /users.json
   def index
+    # User Statistics
+    @total_users = User.count
+    @total_registrations = User.request_students.count
+    @total_alumni = User.alumnies.count
+    @total_members = User.members.count
+    @total_admins = User.admins.count
+    @total_teachers = User.teachers.count
+    @total_ex_students = User.ex_students.count
+
+    # Recent Users (last 5)
+    @recent_users = User.order(created_at: :desc).limit(5)
+
+    # Event Statistics (if AlumniEvent exists)
+    if defined?(AlumniEvent)
+      @total_events = AlumniEvent.count
+      @upcoming_events = AlumniEvent.upcoming.count rescue 0
+      @completed_events = AlumniEvent.completed.count rescue 0
+      @total_event_income = AlumniEvent.joins(:event_incomes).sum('event_incomes.amount') rescue 0
+      @total_event_expense = AlumniEvent.joins(:event_expenses).sum('event_expenses.total_cost') rescue 0
+      @recent_events = AlumniEvent.order(created_at: :desc).limit(5) rescue []
+    else
+      @total_events = 0
+      @upcoming_events = 0
+      @completed_events = 0
+      @total_event_income = 0
+      @total_event_expense = 0
+      @recent_events = []
+    end
+
+    # Committee Statistics
+    @total_committees = Committee.count rescue 0
+    @total_committee_members = CommitteeMember.count rescue 0
+
+    # Photo Gallery Statistics
+    @total_galleries = PhotoGallery.count rescue 0
+
+    # Recent Events (general events)
+    @recent_general_events = RecentEvent.order(created_at: :desc).limit(5) rescue []
+
+    # Monthly registration data for chart (last 12 months)
+    @monthly_registrations = User.where('created_at >= ?', 12.months.ago)
+                                  .group("DATE_FORMAT(created_at, '%Y-%m')")
+                                  .count rescue {}
+
+    # User role distribution for chart
+    @user_role_distribution = User.group(:role).count rescue {}
+
     render layout: 'admin_layout'
   end
 
