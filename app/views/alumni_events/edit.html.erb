@@ -1,0 +1,20 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Alumni Events</h2>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to 'Back', alumni_events_path, class:"btn btn-white btn-border btn-round mr-2" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-inner mt--5">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Edit Event</div>
+    </div>
+    <%= render 'form', alumni_event: @alumni_event %>
+  </div>
+</div>

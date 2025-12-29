@@ -1,0 +1,126 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Alumni Events</h2>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to 'New Event', new_alumni_event_path, class:"btn btn-secondary btn-round" if current_user.is_edit_access? %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-inner mt--5">
+  <div class="row row-card-no-pd">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row card-tools-still-right">
+            <h4 class="card-title">Event List</h4>
+            <div class="card-tools">
+              <%= form_with url: alumni_events_path, method: :get, local: true, class: 'form-inline' do |f| %>
+                <div class="form-group mr-2">
+                  <%= f.select :status, options_for_select(AlumniEvent::STATUSES.map { |s| [s.titleize, s] }, params[:status]),
+                      { include_blank: 'All Statuses' }, class: 'form-control form-control-sm' %>
+                </div>
+                <div class="form-group mr-2">
+                  <%= f.select :event_type, options_for_select(AlumniEvent::EVENT_TYPES.map { |t| [t.titleize, t] }, params[:event_type]),
+                      { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
+                </div>
+                <%= f.submit 'Filter', class: 'btn btn-primary btn-sm' %>
+                <%= link_to 'Clear', alumni_events_path, class: 'btn btn-default btn-sm ml-1' %>
+              <% end %>
+            </div>
+          </div>
+          <p class="card-category">
+            Comprehensive alumni event management with financial tracking</p>
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th class="text-right">Budget</th>
+                  <th class="text-right">Income</th>
+                  <th class="text-right">Expense</th>
+                  <th class="text-right">Balance</th>
+                  <th>Payment Status</th>
+                  <th colspan="3"></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% if @alumni_events.any? %>
+                  <% @alumni_events.each do |event| %>
+                    <tr>
+                      <td><strong><%= event.title %></strong></td>
+                      <td><%= event.event_date ? event.event_date.strftime('%b %d, %Y') : 'TBD' %></td>
+                      <td>
+                        <% if event.event_type.present? %>
+                          <span class="badge badge-primary"><%= event.event_type.titleize %></span>
+                        <% else %>
+                          -
+                        <% end %>
+                      </td>
+                      <td><%= event.location.present? ? event.location : '-' %></td>
+                      <td>
+                        <% status_class = case event.status
+                          when 'planned' then 'badge-warning'
+                          when 'confirmed' then 'badge-info'
+                          when 'ongoing' then 'badge-primary'
+                          when 'completed' then 'badge-success'
+                          when 'cancelled' then 'badge-danger'
+                          else 'badge-secondary'
+                        end %>
+                        <span class="badge <%= status_class %>"><%= event.status.titleize %></span>
+                      </td>
+                      <td class="text-right">৳<%= number_with_delimiter(event.budget.to_f, delimiter: ',') %></td>
+                      <td class="text-right text-success"><strong>৳<%= number_with_delimiter(event.total_income.to_f, delimiter: ',') %></strong></td>
+                      <td class="text-right text-danger"><strong>৳<%= number_with_delimiter(event.total_expenses.to_f, delimiter: ',') %></strong></td>
+                      <td class="text-right">
+                        <% balance = event.balance %>
+                        <strong class="<%= balance >= 0 ? 'text-success' : 'text-danger' %>">
+                          ৳<%= number_with_delimiter(balance.to_f.abs, delimiter: ',') %>
+                        </strong>
+                      </td>
+                      <td>
+                        <% payment_status = event.payment_status %>
+                        <% status_badge_class = case payment_status
+                          when 'fully_paid' then 'badge-success'
+                          when 'partially_paid' then 'badge-warning'
+                          when 'unpaid' then 'badge-danger'
+                          else 'badge-secondary'
+                        end %>
+                        <span class="badge <%= status_badge_class %>"><%= payment_status.titleize.gsub('_', ' ') %></span>
+                      </td>
+                      <td><%= link_to 'Show', event if current_user.is_edit_access? %></td>
+                      <td><%= link_to 'Edit', edit_alumni_event_path(event) if current_user.is_edit_access? %></td>
+                      <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure? This will delete all expenses, payments, and income records.' } if current_user.is_full_access? %></td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="13" class="text-center py-5">
+                      <i class="fa fa-calendar-times fa-3x text-muted mb-3"></i>
+                      <h5>No Events Found</h5>
+                      <p class="text-muted">Start by creating your first alumni event.</p>
+                      <%= link_to 'Create New Event', new_alumni_event_path, class: 'btn btn-primary btn-sm mt-2' if current_user.is_edit_access? %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,159 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold"><%= @alumni_event.title %></h2>
+        <h5 class="text-white op-7 mb-2">
+          <%= @alumni_event.event_date ? @alumni_event.event_date.strftime('%B %d, %Y') : 'Date TBD' %>
+          <% if @alumni_event.location.present? %>
+            | <%= @alumni_event.location %>
+          <% end %>
+        </h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to 'Edit', edit_alumni_event_path(@alumni_event), class:"btn btn-white btn-border btn-round mr-2" %>
+        <%= link_to 'Back', alumni_events_path, class:"btn btn-white btn-border btn-round mr-2" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <!-- Financial Summary Cards -->
+  <div class="row">
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-success bubble-shadow-small">
+                <i class="fa fa-money-bill-wave"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Total Income</p>
+                <h4 class="card-title">৳<%= number_with_delimiter(@alumni_event.total_income.to_f, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-danger bubble-shadow-small">
+                <i class="fa fa-receipt"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Total Expense</p>
+                <h4 class="card-title">৳<%= number_with_delimiter(@alumni_event.total_expenses.to_f, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-warning bubble-shadow-small">
+                <i class="fa fa-hand-holding-usd"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Total Due</p>
+                <h4 class="card-title">৳<%= number_with_delimiter(@alumni_event.total_due.to_f, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <% balance = @alumni_event.balance %>
+              <div class="icon-big text-center <%= balance >= 0 ? 'icon-success' : 'icon-danger' %> bubble-shadow-small">
+                <i class="fa fa-chart-line"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Balance</p>
+                <h4 class="card-title <%= balance >= 0 ? 'text-success' : 'text-danger' %>">
+                  ৳<%= number_with_delimiter(balance.to_f.abs, delimiter: ',') %>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-pills nav-secondary" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active show" data-toggle="pill" href="#overview-tab" role="tab" aria-selected="true">
+                <i class="fa fa-info-circle"></i> Overview
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#expenses-tab" role="tab" aria-selected="false">
+                <i class="fa fa-receipt"></i> Expenses (<%= @expenses.count %>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#income-tab" role="tab" aria-selected="false">
+                <i class="fa fa-money-bill"></i> Income (<%= @incomes.count %>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#audit-tab" role="tab" aria-selected="false">
+                <i class="fa fa-history"></i> Audit Log
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <!-- Overview Tab -->
+            <div class="tab-pane fade active show" id="overview-tab" role="tabpanel">
+              <%= render 'overview_tab' %>
+            </div>
+
+            <!-- Expenses Tab -->
+            <div class="tab-pane fade" id="expenses-tab" role="tabpanel">
+              <%= render 'expenses_tab' %>
+            </div>
+
+            <!-- Income Tab -->
+            <div class="tab-pane fade" id="income-tab" role="tabpanel">
+              <%= render 'income_tab' %>
+            </div>
+
+            <!-- Audit Log Tab -->
+            <div class="tab-pane fade" id="audit-tab" role="tabpanel">
+              <%#= render 'audit_tab' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

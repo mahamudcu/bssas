@@ -327,6 +327,14 @@
         </li>
 
         <li class="nav-item">
+          <%= link_to alumni_events_path do %>
+            <i class="fa fa-calendar-check" aria-hidden="true"></i>
+            <p>Alumni Events</p>
+            <span class="badge badge-success"><%= AlumniEvent.count %></span>
+          <% end if current_user.is_edit_access? %>
+        </li>
+
+        <li class="nav-item">
           <%= link_to settings_path do %>
             <i class="fa fa-cog"></i>
             <p>Settings</p>

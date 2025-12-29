@@ -1,0 +1,247 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Financial Summary</h2>
+        <h5 class="text-white op-7 mb-2"><%= @alumni_event.title %></h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to 'Back to Event', @alumni_event, class:"btn btn-white btn-border btn-round mr-2" %>
+        <%= link_to 'All Events', alumni_events_path, class:"btn btn-white btn-border btn-round mr-2" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <!-- Summary Cards -->
+  <div class="row">
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-primary bubble-shadow-small">
+                <i class="fa fa-wallet"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Budget</p>
+                <h4 class="card-title">৳<%= number_with_delimiter(@summary[:budget], delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-success bubble-shadow-small">
+                <i class="fa fa-money-bill-wave"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Total Income</p>
+                <h4 class="card-title">৳<%= number_with_delimiter(@summary[:total_income], delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-danger bubble-shadow-small">
+                <i class="fa fa-receipt"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Total Expenses</p>
+                <h4 class="card-title">৳<%= number_with_delimiter(@summary[:total_expenses], delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <% balance_class = @summary[:balance] >= 0 ? 'icon-success' : 'icon-danger' %>
+              <div class="icon-big text-center <%= balance_class %> bubble-shadow-small">
+                <i class="fa fa-chart-line"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Balance</p>
+                <% balance_text = @summary[:balance] >= 0 ? 'text-success' : 'text-danger' %>
+                <h4 class="card-title <%= balance_text %>">৳<%= number_with_delimiter(@summary[:balance].abs, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Income Breakdown -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Income by Type</h4>
+        </div>
+        <div class="card-body">
+          <% if @income_by_type.any? %>
+            <table class="table table-borderless">
+              <% @income_by_type.each do |type, amount| %>
+                <tr>
+                  <td><span class="badge badge-success"><%= type.titleize.gsub('_', ' ') %></span></td>
+                  <td class="text-right"><strong>৳<%= number_with_delimiter(amount, delimiter: ',') %></strong></td>
+                  <td class="text-right text-muted">
+                    <%= number_to_percentage((amount.to_f / @summary[:total_income]) * 100, precision: 1) %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p class="text-muted">No income recorded yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expenses Breakdown -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Expenses by Category</h4>
+        </div>
+        <div class="card-body">
+          <% if @expenses_by_category.any? %>
+            <table class="table table-borderless">
+              <% @expenses_by_category.each do |category, amount| %>
+                <tr>
+                  <td><span class="badge badge-danger"><%= category&.titleize || 'Uncategorized' %></span></td>
+                  <td class="text-right"><strong>৳<%= number_with_delimiter(amount, delimiter: ',') %></strong></td>
+                  <td class="text-right text-muted">
+                    <%= number_to_percentage((amount.to_f / @summary[:total_expenses]) * 100, precision: 1) %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p class="text-muted">No expenses recorded yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Summary -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Payment Summary</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <p class="text-muted mb-1">Total Expenses</p>
+              <h4>৳<%= number_with_delimiter(@summary[:total_expenses], delimiter: ',') %></h4>
+            </div>
+            <div class="col-6">
+              <p class="text-muted mb-1">Amount Paid</p>
+              <h4 class="text-success">৳<%= number_with_delimiter(@summary[:total_paid], delimiter: ',') %></h4>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <p class="text-muted mb-1">Amount Due</p>
+              <h4 class="text-danger">৳<%= number_with_delimiter(@summary[:total_due], delimiter: ',') %></h4>
+            </div>
+            <div class="col-6">
+              <p class="text-muted mb-1">Payment Status</p>
+              <% status_badge = case @summary[:payment_status]
+                when 'fully_paid' then 'badge-success'
+                when 'partially_paid' then 'badge-warning'
+                when 'unpaid' then 'badge-danger'
+                else 'badge-secondary'
+              end %>
+              <span class="badge <%= status_badge %> p-2"><%= @summary[:payment_status].titleize %></span>
+            </div>
+          </div>
+          <div class="progress mt-3">
+            <% payment_percentage = @summary[:total_expenses] > 0 ? ((@summary[:total_paid].to_f / @summary[:total_expenses]) * 100).round : 0 %>
+            <div class="progress-bar bg-success" role="progressbar"
+                 style="width: <%= payment_percentage %>%"
+                 aria-valuenow="<%= payment_percentage %>"
+                 aria-valuemin="0"
+                 aria-valuemax="100">
+              <%= payment_percentage %>%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Utilization -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Budget Utilization</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="<%= @summary[:budget_utilization] > 100 ? 'text-danger' : 'text-success' %>">
+                <%= @summary[:budget_utilization] %>%
+              </h2>
+              <p class="text-muted">of allocated budget</p>
+              <div class="progress" style="height: 25px;">
+                <div class="progress-bar <%= @summary[:budget_utilization] > 100 ? 'bg-danger' : (@summary[:budget_utilization] > 80 ? 'bg-warning' : 'bg-success') %>"
+                     role="progressbar"
+                     style="width: <%= [@summary[:budget_utilization], 100].min %>%"
+                     aria-valuenow="<%= @summary[:budget_utilization] %>"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                  <strong><%= @summary[:budget_utilization] %>%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-6">
+              <p class="text-muted mb-1">Remaining Budget</p>
+              <% remaining = @summary[:budget] - @summary[:total_expenses] %>
+              <h4 class="<%= remaining >= 0 ? 'text-success' : 'text-danger' %>">
+                ৳<%= number_with_delimiter(remaining.abs, delimiter: ',') %>
+              </h4>
+            </div>
+            <div class="col-6">
+              <p class="text-muted mb-1">Surplus/Deficit</p>
+              <% surplus_deficit = @summary[:surplus_or_deficit] %>
+              <h4 class="<%= surplus_deficit[:type] == 'surplus' ? 'text-success' : 'text-danger' %>">
+                ৳<%= number_with_delimiter(surplus_deficit[:amount], delimiter: ',') %>
+                (<%= surplus_deficit[:type].titleize %>)
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

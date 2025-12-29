@@ -1,0 +1,89 @@
+<%= form_with(model: alumni_event, local: true) do |form| %>
+  <div class="card-body">
+    <% if alumni_event.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <h4><%= pluralize(alumni_event.errors.count, "error") %> prohibited this event from being saved:</h4>
+        <ul>
+          <% alumni_event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <%= form.label :title, "Event Title" %>
+          <%= form.text_field :title, class: "form-control", placeholder: "Enter event title", required: true %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= form.label :status %>
+          <%= form.select :status, options_for_select(AlumniEvent::STATUSES.map { |s| [s.titleize, s] }, alumni_event.status),
+              {}, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: "form-control", rows: 4, placeholder: "Enter event description..." %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :event_date, "Event Date" %>
+          <%= form.date_field :event_date, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :event_type, "Event Type" %>
+          <%= form.select :event_type, options_for_select(AlumniEvent::EVENT_TYPES.map { |t| [t.titleize, t] }, alumni_event.event_type),
+              { include_blank: 'Select Event Type' }, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= form.label :location %>
+          <%= form.text_field :location, class: "form-control", placeholder: "Enter event location" %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= form.label :budget, "Event Budget (৳)" %>
+          <%= form.number_field :budget, class: "form-control", step: "0.01", min: "0", placeholder: "0.00" %>
+          <small class="form-text text-muted">Total budget allocated for this event</small>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= form.label :registration_fee, "Registration Fee (৳)" %>
+          <%= form.number_field :registration_fee, class: "form-control", step: "0.01", min: "0", placeholder: "0.00" %>
+          <small class="form-text text-muted">Fee per attendee</small>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= form.label :max_attendees, "Maximum Attendees" %>
+          <%= form.number_field :max_attendees, class: "form-control", min: "1", placeholder: "e.g., 100" %>
+          <small class="form-text text-muted">Maximum number of attendees</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-action">
+      <%= form.submit alumni_event.new_record? ? 'Create Event' : 'Update Event', class: 'btn btn-success' %>
+      <%= link_to 'Back', alumni_events_path, class: "btn btn-danger" %>
+    </div>
+  </div>
+<% end %>

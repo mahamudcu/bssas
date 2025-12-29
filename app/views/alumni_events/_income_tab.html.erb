@@ -1,0 +1,153 @@
+<div class="mb-4">
+  <button class="btn btn-success btn-sm" data-toggle="collapse" data-target="#addIncomeForm">
+    <i class="fa fa-plus"></i> Add New Income
+  </button>
+</div>
+
+<div class="collapse mb-4" id="addIncomeForm">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Record New Income</h4>
+    </div>
+    <div class="card-body">
+      <%= form_with(model: [@alumni_event, @alumni_event.event_incomes.build], local: true) do |f| %>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :income_type, "Income Type" %>
+              <%= f.select :income_type, options_for_select(EventIncome::INCOME_TYPES.map { |t| [t.titleize.gsub('_', ' '), t] }), 
+                  { prompt: 'Select Income Type' }, class: "form-control", required: true %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :contributor_id, "Contributor (Optional)" %>
+              <%= f.collection_select :contributor_id, User.all.order(:name), :id, :name, 
+                  { include_blank: 'Anonymous/External' }, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :amount, "Amount (৳)" %>
+              <%= f.number_field :amount, class: "form-control", step: "0.01", placeholder: "0.00", required: true %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :payment_date, "Date Received" %>
+              <%= f.date_field :payment_date, class: "form-control", value: Date.today, required: true %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :payment_method, "Payment Method" %>
+              <%= f.select :payment_method, options_for_select(EventIncome::PAYMENT_METHODS.map { |m| [m.titleize.gsub('_', ' '), m] }), 
+                  { include_blank: 'Select Method' }, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :reference_number, "Reference Number" %>
+              <%= f.text_field :reference_number, class: "form-control", placeholder: "Transaction ID, Receipt number, etc." %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :notes %>
+              <%= f.text_area :notes, class: "form-control", rows: 2, placeholder: "Optional notes" %>
+            </div>
+          </div>
+        </div>
+        <%= f.submit 'Add Income', class: 'btn btn-success' %>
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#addIncomeForm">Cancel</button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @incomes.any? %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Income Type</th>
+          <th>Contributor</th>
+          <th class="text-right">Amount</th>
+          <th>Payment Method</th>
+          <th>Date Received</th>
+          <th>Reference</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @incomes.each do |income| %>
+          <tr>
+            <td>
+              <span class="badge badge-info"><%= income.income_type.titleize.gsub('_', ' ') %></span>
+            </td>
+            <td>
+              <% if income.contributor.present? %>
+                <%= income.contributor.name %>
+              <% else %>
+                <span class="text-muted">Anonymous</span>
+              <% end %>
+            </td>
+            <td class="text-right"><strong>৳<%= number_with_delimiter(income.amount, delimiter: ',') %></strong></td>
+            <td>
+              <% if income.payment_method.present? %>
+                <span class="badge badge-secondary"><%= income.payment_method.titleize.gsub('_', ' ') %></span>
+              <% else %>
+                -
+              <% end %>
+            </td>
+            <td><%= income.payment_date.strftime('%b %d, %Y') %></td>
+            <td><%= income.reference_number || '-' %></td>
+            <td>
+              <%= link_to alumni_event_event_income_path(@alumni_event, income), method: :delete, 
+                  data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do %>
+                <i class="fa fa-trash"></i>
+              <% end %>
+            </td>
+          </tr>
+          <% if income.notes.present? %>
+            <tr class="bg-light">
+              <td colspan="7">
+                <small class="text-muted"><strong>Notes:</strong> <%= income.notes %></small>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr class="table-active">
+          <th colspan="2" class="text-right">Total Income:</th>
+          <th class="text-right"><strong>৳<%= number_with_delimiter(@alumni_event.total_income, delimiter: ',') %></strong></th>
+          <th colspan="4"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Income Breakdown by Type -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h5 class="mb-3">Income Breakdown by Type</h5>
+      <div class="row">
+        <% @alumni_event.income_by_type.each do |type, amount| %>
+          <div class="col-md-3 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body">
+                <p class="text-muted mb-1"><%= type.titleize.gsub('_', ' ') %></p>
+                <h4 class="text-success mb-0">৳<%= number_with_delimiter(amount, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="alert alert-info">
+    <i class="fa fa-info-circle"></i> No income recorded yet. Click "Add New Income" to get started.
+  </div>
+<% end %>

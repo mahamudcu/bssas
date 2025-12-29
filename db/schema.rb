@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_06_094513) do
+ActiveRecord::Schema.define(version: 2025_12_19_065136) do
+
+  create_table "alumni_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.date "event_date"
+    t.string "event_type"
+    t.string "location"
+    t.string "status", default: "planned"
+    t.decimal "budget", precision: 12, scale: 2, default: "0.0"
+    t.decimal "registration_fee", precision: 10, scale: 2, default: "0.0"
+    t.integer "max_attendees"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_date"], name: "index_alumni_events_on_event_date"
+    t.index ["status"], name: "index_alumni_events_on_status"
+    t.index ["user_id"], name: "index_alumni_events_on_user_id"
+  end
 
   create_table "committee_designations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title"
@@ -47,6 +65,69 @@ ActiveRecord::Schema.define(version: 2025_07_06_094513) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["committee_designation_id"], name: "index_committees_on_committee_designation_id"
+  end
+
+  create_table "event_audit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "alumni_event_id"
+    t.integer "user_id"
+    t.string "action", null: false
+    t.string "auditable_type"
+    t.integer "auditable_id"
+    t.text "change_data"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alumni_event_id"], name: "index_event_audit_logs_on_alumni_event_id"
+    t.index ["auditable_type", "auditable_id"], name: "index_event_audit_logs_on_auditable_type_and_auditable_id"
+    t.index ["created_at"], name: "index_event_audit_logs_on_created_at"
+    t.index ["user_id"], name: "index_event_audit_logs_on_user_id"
+  end
+
+  create_table "event_expenses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "alumni_event_id", null: false
+    t.string "item_name", null: false
+    t.text "description"
+    t.decimal "quantity", precision: 10, scale: 2, default: "1.0"
+    t.decimal "unit_cost", precision: 10, scale: 2, default: "0.0"
+    t.decimal "total_cost", precision: 12, scale: 2, default: "0.0"
+    t.string "category"
+    t.string "vendor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alumni_event_id"], name: "index_event_expenses_on_alumni_event_id"
+    t.index ["category"], name: "index_event_expenses_on_category"
+  end
+
+  create_table "event_incomes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "alumni_event_id", null: false
+    t.integer "contributor_id"
+    t.string "income_type", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "payment_method"
+    t.date "payment_date", null: false
+    t.string "reference_number"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alumni_event_id"], name: "index_event_incomes_on_alumni_event_id"
+    t.index ["contributor_id"], name: "index_event_incomes_on_contributor_id"
+    t.index ["income_type"], name: "index_event_incomes_on_income_type"
+    t.index ["payment_date"], name: "index_event_incomes_on_payment_date"
+  end
+
+  create_table "expense_payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "event_expense_id", null: false
+    t.decimal "amount_paid", precision: 10, scale: 2, null: false
+    t.date "payment_date", null: false
+    t.string "payment_method"
+    t.string "payment_reference"
+    t.text "notes"
+    t.integer "paid_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_expense_id"], name: "index_expense_payments_on_event_expense_id"
+    t.index ["paid_by"], name: "index_expense_payments_on_paid_by"
+    t.index ["payment_date"], name: "index_expense_payments_on_payment_date"
   end
 
   create_table "photo_galleries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|

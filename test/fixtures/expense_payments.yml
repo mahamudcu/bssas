@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_expense_id: 1
+  amount_paid: 9.99
+  payment_date: 2025-12-18
+  payment_method: MyString
+  payment_reference: MyString
+  notes: MyText
+  paid_by: 1
+
+two:
+  event_expense_id: 1
+  amount_paid: 9.99
+  payment_date: 2025-12-18
+  payment_method: MyString
+  payment_reference: MyString
+  notes: MyText
+  paid_by: 1

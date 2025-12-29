@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-8">
+    <h4 class="mb-3">Event Information</h4>
+    <table class="table table-borderless">
+      <tr>
+        <th width="200">Event Title:</th>
+        <td><strong><%= @alumni_event.title %></strong></td>
+      </tr>
+      <tr>
+        <th>Description:</th>
+        <td><%= @alumni_event.description.present? ? @alumni_event.description : '<span class="text-muted">No description provided</span>'.html_safe %></td>
+      </tr>
+      <tr>
+        <th>Event Date:</th>
+        <td><%= @alumni_event.event_date ? @alumni_event.event_date.strftime('%B %d, %Y') : '<span class="text-muted">Not set</span>'.html_safe %></td>
+      </tr>
+      <tr>
+        <th>Event Type:</th>
+        <td>
+          <% if @alumni_event.event_type.present? %>
+            <span class="badge badge-primary"><%= @alumni_event.event_type.titleize %></span>
+          <% else %>
+            <span class="text-muted">Not specified</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>Location:</th>
+        <td><%= @alumni_event.location.present? ? @alumni_event.location : '<span class="text-muted">Not specified</span>'.html_safe %></td>
+      </tr>
+      <tr>
+        <th>Status:</th>
+        <td>
+          <% status_class = case @alumni_event.status
+            when 'planned' then 'badge-warning'
+            when 'confirmed' then 'badge-info'
+            when 'ongoing' then 'badge-primary'
+            when 'completed' then 'badge-success'
+            when 'cancelled' then 'badge-danger'
+            else 'badge-secondary'
+          end %>
+          <span class="badge <%= status_class %>"><%= @alumni_event.status.titleize %></span>
+        </td>
+      </tr>
+      <tr>
+        <th>Max Attendees:</th>
+        <td><%= @alumni_event.max_attendees || '<span class="text-muted">Unlimited</span>'.html_safe %></td>
+      </tr>
+      <tr>
+        <th>Created By:</th>
+        <td><%= @alumni_event.user.name %></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+    <h4 class="mb-3">Budget Information</h4>
+    <div class="card card-info">
+      <div class="card-body">
+        <div class="mb-3">
+          <p class="text-muted mb-1">Allocated Budget</p>
+          <h3 class="mb-0">৳<%= number_with_delimiter(@alumni_event.budget.to_f, delimiter: ',') %></h3>
+        </div>
+        <div class="mb-3">
+          <p class="text-muted mb-1">Registration Fee</p>
+          <h4 class="mb-0">৳<%= number_with_delimiter(@alumni_event.registration_fee.to_f, delimiter: ',') %></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

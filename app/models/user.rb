@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   mount_uploader :image, AvatarUploader
 
+  # Associations
+  has_many :alumni_events, dependent: :destroy
+  has_many :event_incomes, foreign_key: 'contributor_id', dependent: :nullify
+  has_many :event_audit_logs, dependent: :nullify
 
   ROLE = {
     admin: 'admin',

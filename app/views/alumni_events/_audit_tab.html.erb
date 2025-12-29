@@ -1,0 +1,131 @@
+<div class="mb-3">
+  <p class="text-muted">Complete history of all changes made to this event and its related records.</p>
+</div>
+
+<% if @audit_logs.any? %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>User</th>
+          <th>Action</th>
+          <th>Record Type</th>
+          <th>IP Address</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @audit_logs.each do |log| %>
+          <tr>
+            <td>
+              <%= log.created_at.strftime('%b %d, %Y') %><br>
+              <small class="text-muted"><%= log.created_at.strftime('%I:%M %p') %></small>
+            </td>
+            <td>
+              <%= log.user_name %>
+            </td>
+            <td>
+              <% action_badge = case log.action
+                when 'create' then 'badge-success'
+                when 'update' then 'badge-info'
+                when 'destroy' then 'badge-danger'
+                when 'payment_added' then 'badge-primary'
+                when 'income_added' then 'badge-success'
+                else 'badge-secondary'
+              end %>
+              <span class="badge <%= action_badge %>"><%= log.action_description %></span>
+            </td>
+            <td>
+              <% if log.auditable_type.present? %>
+                <%= log.auditable_type.gsub(/([A-Z])/, ' \1').strip %>
+              <% else %>
+                -
+              <% end %>
+            </td>
+            <td>
+              <small class="text-muted"><%= log.ip_address || 'N/A' %></small>
+            </td>
+            <td>
+              <% if log.change_data.present? && log.parsed_changes.any? %>
+                <button class="btn btn-sm btn-link" data-toggle="collapse" data-target="#changes<%= log.id %>">
+                  View Changes
+                </button>
+                <div class="collapse" id="changes<%= log.id %>">
+                  <div class="bg-light p-2 mt-2" style="max-width: 400px;">
+                    <small>
+                      <% log.parsed_changes.each do |field, values| %>
+                        <strong><%= field.titleize %>:</strong><br>
+                        <% if values.is_a?(Array) && values.size == 2 %>
+                          From: <code><%= values[0] || 'nil' %></code><br>
+                          To: <code><%= values[1] || 'nil' %></code><br>
+                        <% else %>
+                          <%= values %>
+                        <% end %>
+                        <br>
+                      <% end %>
+                    </small>
+                  </div>
+                </div>
+              <% else %>
+                -
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @alumni_event.event_audit_logs.count > 20 %>
+    <div class="alert alert-info mt-3">
+      <i class="fa fa-info-circle"></i> Showing the most recent 20 audit logs. 
+      Total logs: <%= @alumni_event.event_audit_logs.count %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="alert alert-info">
+    <i class="fa fa-info-circle"></i> No audit logs available yet. Actions will be logged as they occur.
+  </div>
+<% end %>
+
+<!-- Audit Log Statistics -->
+<div class="row mt-4">
+  <div class="col-md-12">
+    <h5 class="mb-3">Activity Summary</h5>
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <p class="text-muted mb-1">Total Actions</p>
+            <h4 class="mb-0"><%= @alumni_event.event_audit_logs.count %></h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <p class="text-muted mb-1">Creates</p>
+            <h4 class="mb-0 text-success"><%= @alumni_event.event_audit_logs.by_action('create').count %></h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <p class="text-muted mb-1">Updates</p>
+            <h4 class="mb-0 text-info"><%= @alumni_event.event_audit_logs.by_action('update').count %></h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <p class="text-muted mb-1">Deletes</p>
+            <h4 class="mb-0 text-danger"><%= @alumni_event.event_audit_logs.by_action('destroy').count %></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

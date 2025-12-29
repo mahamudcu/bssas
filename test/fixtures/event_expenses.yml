@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alumni_event_id: 1
+  item_name: MyString
+  description: MyText
+  quantity: 9.99
+  unit_cost: 9.99
+  total_cost: 9.99
+  category: MyString
+  vendor: MyString
+
+two:
+  alumni_event_id: 1
+  item_name: MyString
+  description: MyText
+  quantity: 9.99
+  unit_cost: 9.99
+  total_cost: 9.99
+  category: MyString
+  vendor: MyString

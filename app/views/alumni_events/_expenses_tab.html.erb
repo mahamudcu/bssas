@@ -1,0 +1,174 @@
+<div class="mb-4">
+  <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#addExpenseForm">
+    <i class="fa fa-plus"></i> Add New Expense
+  </button>
+</div>
+
+<div class="collapse mb-4" id="addExpenseForm">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Add New Expense Item</h4>
+    </div>
+    <div class="card-body">
+      <%= form_with(model: [@alumni_event, @alumni_event.event_expenses.build], local: true) do |f| %>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :item_name, "Item Name" %>
+              <%= f.text_field :item_name, class: "form-control", placeholder: "e.g., Venue Rental", required: true %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :category %>
+              <%= f.select :category, options_for_select(EventExpense::CATEGORIES.map { |c| [c.titleize, c] }), 
+                  { include_blank: 'Select Category' }, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :vendor %>
+              <%= f.text_field :vendor, class: "form-control", placeholder: "Vendor name" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :quantity %>
+              <%= f.number_field :quantity, class: "form-control", step: "0.01", value: 1, required: true %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :unit_cost, "Unit Cost (৳)" %>
+              <%= f.number_field :unit_cost, class: "form-control", step: "0.01", placeholder: "0.00", required: true %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, class: "form-control", rows: 2, placeholder: "Optional description" %>
+            </div>
+          </div>
+        </div>
+        <%= f.submit 'Add Expense', class: 'btn btn-success' %>
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#addExpenseForm">Cancel</button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @expenses.any? %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Category</th>
+          <th>Vendor</th>
+          <th class="text-right">Quantity</th>
+          <th class="text-right">Unit Cost</th>
+          <th class="text-right">Total Cost</th>
+          <th class="text-right">Paid</th>
+          <th class="text-right">Due</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @expenses.each do |expense| %>
+          <tr>
+            <td><strong><%= expense.item_name %></strong></td>
+            <td><span class="badge badge-secondary"><%= expense.category&.titleize || 'N/A' %></span></td>
+            <td><%= expense.vendor || '-' %></td>
+            <td class="text-right"><%= number_with_delimiter(expense.quantity, delimiter: ',') %></td>
+            <td class="text-right">৳<%= number_with_delimiter(expense.unit_cost, delimiter: ',') %></td>
+            <td class="text-right"><strong>৳<%= number_with_delimiter(expense.total_cost, delimiter: ',') %></strong></td>
+            <td class="text-right text-success">৳<%= number_with_delimiter(expense.amount_paid, delimiter: ',') %></td>
+            <td class="text-right text-danger">৳<%= number_with_delimiter(expense.amount_due, delimiter: ',') %></td>
+            <td>
+              <% status_badge = case expense.payment_status
+                when 'fully_paid' then 'badge-success'
+                when 'partially_paid' then 'badge-warning'
+                when 'unpaid' then 'badge-danger'
+                else 'badge-secondary'
+              end %>
+              <span class="badge <%= status_badge %>"><%= expense.payment_status.titleize %></span>
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#paymentModal<%= expense.id %>">
+                  <i class="fa fa-dollar-sign"></i>
+                </button>
+                <%= link_to alumni_event_event_expense_path(@alumni_event, expense), method: :delete, 
+                    data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Payment Modal -->
+          <div class="modal fade" id="paymentModal<%= expense.id %>" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Record Payment - <%= expense.item_name %></h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                  </button>
+                </div>
+                <%= form_with(model: [expense, expense.expense_payments.build], url: event_expense_expense_payments_path(expense), local: true) do |pf| %>
+                  <div class="modal-body">
+                    <p><strong>Total Cost:</strong> ৳<%= number_with_delimiter(expense.total_cost, delimiter: ',') %></p>
+                    <p><strong>Already Paid:</strong> ৳<%= number_with_delimiter(expense.amount_paid, delimiter: ',') %></p>
+                    <p><strong>Due Amount:</strong> ৳<%= number_with_delimiter(expense.amount_due, delimiter: ',') %></p>
+                    <hr>
+                    <div class="form-group">
+                      <%= pf.label :amount_paid, "Payment Amount (৳)" %>
+                      <%= pf.number_field :amount_paid, class: "form-control", step: "0.01", 
+                          max: expense.amount_due, placeholder: "Enter amount", required: true %>
+                    </div>
+                    <div class="form-group">
+                      <%= pf.label :payment_date %>
+                      <%= pf.date_field :payment_date, class: "form-control", value: Date.today, required: true %>
+                    </div>
+                    <div class="form-group">
+                      <%= pf.label :payment_method %>
+                      <%= pf.select :payment_method, options_for_select(ExpensePayment::PAYMENT_METHODS.map { |m| [m.titleize.gsub('_', ' '), m] }), 
+                          { include_blank: 'Select Method' }, class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                      <%= pf.label :payment_reference, "Reference Number" %>
+                      <%= pf.text_field :payment_reference, class: "form-control", placeholder: "Transaction ID, Cheque number, etc." %>
+                    </div>
+                    <div class="form-group">
+                      <%= pf.label :notes %>
+                      <%= pf.text_area :notes, class: "form-control", rows: 2, placeholder: "Optional notes" %>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <%= pf.submit 'Record Payment', class: 'btn btn-success' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr class="table-active">
+          <th colspan="5" class="text-right">Total:</th>
+          <th class="text-right">৳<%= number_with_delimiter(@alumni_event.total_expenses, delimiter: ',') %></th>
+          <th class="text-right text-success">৳<%= number_with_delimiter(@alumni_event.total_paid, delimiter: ',') %></th>
+          <th class="text-right text-danger">৳<%= number_with_delimiter(@alumni_event.total_due, delimiter: ',') %></th>
+          <th colspan="2"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+<% else %>
+  <div class="alert alert-info">
+    <i class="fa fa-info-circle"></i> No expenses recorded yet. Click "Add New Expense" to get started.
+  </div>
+<% end %>

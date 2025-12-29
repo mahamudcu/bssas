@@ -1,5 +1,28 @@
 Rails.application.routes.draw do
 
+  # Alumni Event Management System Routes
+  resources :alumni_events do
+    member do
+      get 'financial_summary'
+    end
+    resources :event_expenses, only: [:create, :update, :destroy]
+    resources :event_incomes, only: [:create, :update, :destroy]
+  end
+
+  resources :event_expenses, only: [] do
+    resources :expense_payments, only: [:create, :destroy]
+  end
+
+  resources :event_reports, only: [:index] do
+    collection do
+      get 'expenses_report'
+      get 'incomes_report'
+      get 'financial_summary'
+      get 'export_pdf'
+      get 'export_excel'
+    end
+  end
+
   resources :committee_members
   resources :committees
   resources :committee_designations
