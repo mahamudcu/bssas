@@ -1,0 +1,63 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Member-wise Payment History</h2>
+        <h5 class="text-white op-7 mb-2">Individual payment records for all members</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to admin_collections_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-arrow-left"></i> Back to Dashboard
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">All Members</div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Subscription</th>
+              <th class="text-right">Total Paid</th>
+              <th class="text-right">Pending</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @members.each do |member| %>
+              <tr>
+                <td><strong><%= member.name %></strong></td>
+                <td><%= member.email %></td>
+                <td><span class="badge badge-<%= member.role == 'member' ? 'warning' : 'success' %>"><%= member.role&.titleize %></span></td>
+                <td>
+                  <% if member.has_active_subscription? %>
+                    <span class="badge badge-success"><%= member.active_subscription.plan_type.titleize %> - Active</span>
+                  <% else %>
+                    <span class="badge badge-danger">No Active Plan</span>
+                  <% end %>
+                </td>
+                <td class="text-right"><%= number_with_delimiter(member.total_paid, delimiter: ',') %></td>
+                <td class="text-right"><%= number_with_delimiter(member.pending_dues, delimiter: ',') %></td>
+                <td>
+                  <%= link_to admin_payments_path(user_id: member.id), class: 'btn btn-sm btn-primary btn-round' do %>
+                    <i class="fa fa-eye"></i> History
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

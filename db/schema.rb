@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_12_19_065136) do
+ActiveRecord::Schema.define(version: 2026_03_30_010004) do
 
   create_table "alumni_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "title", null: false
@@ -115,6 +115,21 @@ ActiveRecord::Schema.define(version: 2025_12_19_065136) do
     t.index ["payment_date"], name: "index_event_incomes_on_payment_date"
   end
 
+  create_table "event_registrations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "alumni_event_id", null: false
+    t.string "status", default: "pending"
+    t.bigint "payment_id"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alumni_event_id"], name: "index_event_registrations_on_alumni_event_id"
+    t.index ["payment_id"], name: "index_event_registrations_on_payment_id"
+    t.index ["status"], name: "index_event_registrations_on_status"
+    t.index ["user_id", "alumni_event_id"], name: "idx_event_reg_user_event", unique: true
+    t.index ["user_id"], name: "index_event_registrations_on_user_id"
+  end
+
   create_table "expense_payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "event_expense_id", null: false
     t.decimal "amount_paid", precision: 10, scale: 2, null: false
@@ -128,6 +143,50 @@ ActiveRecord::Schema.define(version: 2025_12_19_065136) do
     t.index ["event_expense_id"], name: "index_expense_payments_on_event_expense_id"
     t.index ["paid_by"], name: "index_expense_payments_on_paid_by"
     t.index ["payment_date"], name: "index_expense_payments_on_payment_date"
+  end
+
+  create_table "payment_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "payment_id"
+    t.bigint "user_id"
+    t.string "action", null: false
+    t.text "details"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action"], name: "index_payment_logs_on_action"
+    t.index ["payment_id"], name: "index_payment_logs_on_payment_id"
+    t.index ["user_id"], name: "index_payment_logs_on_user_id"
+  end
+
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "payment_type", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "payment_method", null: false
+    t.string "status", default: "pending"
+    t.string "transaction_id"
+    t.string "sslcommerz_tran_id"
+    t.string "sslcommerz_val_id"
+    t.text "gateway_response"
+    t.bigint "subscription_id"
+    t.bigint "alumni_event_id"
+    t.integer "approved_by_id"
+    t.datetime "approved_at"
+    t.string "reference_number"
+    t.text "notes"
+    t.date "payment_for_month"
+    t.integer "payment_for_year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alumni_event_id"], name: "index_payments_on_alumni_event_id"
+    t.index ["approved_by_id"], name: "index_payments_on_approved_by_id"
+    t.index ["payment_for_month"], name: "index_payments_on_payment_for_month"
+    t.index ["payment_type"], name: "index_payments_on_payment_type"
+    t.index ["sslcommerz_tran_id"], name: "index_payments_on_sslcommerz_tran_id"
+    t.index ["status"], name: "index_payments_on_status"
+    t.index ["subscription_id"], name: "index_payments_on_subscription_id"
+    t.index ["transaction_id"], name: "index_payments_on_transaction_id", unique: true
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "photo_galleries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -154,6 +213,24 @@ ActiveRecord::Schema.define(version: 2025_12_19_065136) do
     t.text "vission"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "plan_type", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "status", default: "active"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.date "next_due_date"
+    t.boolean "auto_renew", default: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["next_due_date"], name: "index_subscriptions_on_next_due_date"
+    t.index ["plan_type"], name: "index_subscriptions_on_plan_type"
+    t.index ["status"], name: "index_subscriptions_on_status"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -190,4 +267,13 @@ ActiveRecord::Schema.define(version: 2025_12_19_065136) do
   add_foreign_key "committee_members", "committees"
   add_foreign_key "committee_members", "users"
   add_foreign_key "committees", "committee_designations"
+  add_foreign_key "event_registrations", "alumni_events"
+  add_foreign_key "event_registrations", "payments"
+  add_foreign_key "event_registrations", "users"
+  add_foreign_key "payment_logs", "payments"
+  add_foreign_key "payment_logs", "users"
+  add_foreign_key "payments", "alumni_events"
+  add_foreign_key "payments", "subscriptions"
+  add_foreign_key "payments", "users"
+  add_foreign_key "subscriptions", "users"
 end

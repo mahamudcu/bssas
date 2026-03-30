@@ -334,6 +334,73 @@
           <% end if current_user.is_edit_access? %>
         </li>
 
+        <% if current_user.is_edit_access? %>
+        <li class="nav-item">
+          <a data-toggle="collapse" href="#accountsMenu">
+            <i class="fas fa-money-bill-wave"></i>
+            <p>Accounts & Payments</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="accountsMenu">
+            <ul class="nav nav-collapse">
+              <li>
+                <%= link_to admin_collections_path do %>
+                  <span class="sub-item">Collections Dashboard</span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to admin_payments_path do %>
+                  <span class="sub-item">All Payments</span>
+                  <% pending_count = Payment.pending_payments.count rescue 0 %>
+                  <% if pending_count > 0 %>
+                    <span class="badge badge-warning"><%= pending_count %></span>
+                  <% end %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to admin_subscriptions_path do %>
+                  <span class="sub-item">Subscriptions</span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to admin_transactions_path do %>
+                  <span class="sub-item">Transaction History</span>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <% end %>
+
+        <% if current_user.is_show_access? %>
+        <li class="nav-item">
+          <a data-toggle="collapse" href="#memberPaymentMenu">
+            <i class="fas fa-credit-card"></i>
+            <p>My Payments</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="memberPaymentMenu">
+            <ul class="nav nav-collapse">
+              <li>
+                <%= link_to member_payments_path do %>
+                  <span class="sub-item">Payment History</span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to pay_membership_member_payments_path do %>
+                  <span class="sub-item">Pay Dues</span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to events_member_payments_path do %>
+                  <span class="sub-item">Event Registration</span>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <% end %>
+
         <li class="nav-item">
           <%= link_to settings_path do %>
             <i class="fa fa-cog"></i>

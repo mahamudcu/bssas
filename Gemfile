@@ -72,3 +72,4 @@ gem 'devise'
 gem 'carrierwave', '~> 2.0'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
+gem 'httparty'

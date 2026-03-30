@@ -1,0 +1,135 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Payment Details</h2>
+        <h5 class="text-white op-7 mb-2">Transaction: <%= @payment.transaction_id %></h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to admin_payments_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-arrow-left"></i> Back to Payments
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Payment Information</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table table-bordered">
+                <tr>
+                  <th width="40%">Transaction ID</th>
+                  <td><code><%= @payment.transaction_id %></code></td>
+                </tr>
+                <tr>
+                  <th>Member</th>
+                  <td><%= @payment.user&.name %> (<%= @payment.user&.email %>)</td>
+                </tr>
+                <tr>
+                  <th>Payment Type</th>
+                  <td><%= @payment.payment_type_label %></td>
+                </tr>
+                <tr>
+                  <th>Amount</th>
+                  <td><strong><%= number_with_delimiter(@payment.amount, delimiter: ',') %> BDT</strong></td>
+                </tr>
+                <tr>
+                  <th>Payment Method</th>
+                  <td><%= @payment.payment_method&.titleize %></td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <table class="table table-bordered">
+                <tr>
+                  <th width="40%">Status</th>
+                  <td><span class="badge <%= @payment.status_badge_class %>"><%= @payment.status&.titleize %></span></td>
+                </tr>
+                <tr>
+                  <th>Date</th>
+                  <td><%= @payment.created_at.strftime('%d %b %Y %H:%M:%S') %></td>
+                </tr>
+                <tr>
+                  <th>Reference</th>
+                  <td><%= @payment.reference_number || '-' %></td>
+                </tr>
+                <tr>
+                  <th>Approved By</th>
+                  <td><%= @payment.approved_by&.name || '-' %></td>
+                </tr>
+                <tr>
+                  <th>Approved At</th>
+                  <td><%= @payment.approved_at&.strftime('%d %b %Y %H:%M') || '-' %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <% if @payment.alumni_event.present? %>
+            <div class="alert alert-info mt-3">
+              <strong>Event:</strong> <%= @payment.alumni_event.title %>
+              (<%= @payment.alumni_event.event_date&.strftime('%d %b %Y') %>)
+            </div>
+          <% end %>
+
+          <% if @payment.notes.present? %>
+            <div class="alert alert-secondary mt-3">
+              <strong>Notes:</strong> <%= @payment.notes %>
+            </div>
+          <% end %>
+        </div>
+        <% if @payment.pending? && @payment.manual_payment? %>
+          <div class="card-footer text-right">
+            <%= link_to approve_admin_payment_path(@payment), method: :patch, class: 'btn btn-success btn-round mr-2', data: { confirm: 'Are you sure you want to approve this payment?' } do %>
+              <i class="fa fa-check"></i> Approve Payment
+            <% end %>
+            <%= link_to reject_admin_payment_path(@payment), method: :patch, class: 'btn btn-danger btn-round', data: { confirm: 'Are you sure you want to reject this payment?' } do %>
+              <i class="fa fa-times"></i> Reject Payment
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Activity Log</div>
+        </div>
+        <div class="card-body">
+          <% @payment_logs.each do |log| %>
+            <div class="d-flex mb-3">
+              <div class="avatar avatar-sm mr-2">
+                <span class="avatar-title rounded-circle bg-<%= log.action == 'approved' ? 'success' : (log.action == 'rejected' ? 'danger' : 'info') %>">
+                  <i class="fas fa-<%= log.action == 'approved' ? 'check' : (log.action == 'rejected' ? 'times' : 'info') %>"></i>
+                </span>
+              </div>
+              <div>
+                <strong><%= log.action.titleize %></strong>
+                <% if log.user.present? %>
+                  by <%= log.user.name %>
+                <% end %>
+                <br>
+                <small class="text-muted"><%= log.created_at.strftime('%d %b %Y %H:%M') %></small>
+                <% if log.details.present? %>
+                  <br><small><%= log.details %></small>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if @payment_logs.empty? %>
+            <p class="text-muted text-center">No activity logs</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

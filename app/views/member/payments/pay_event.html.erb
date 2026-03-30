@@ -1,0 +1,38 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Event Payment</h2>
+        <h5 class="text-white op-7 mb-2"><%= @event.title %></h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Payment Confirmation</div>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <tr><th>Event</th><td><%= @event.title %></td></tr>
+            <tr><th>Date</th><td><%= @event.event_date&.strftime('%d %b %Y') %></td></tr>
+            <tr><th>Location</th><td><%= @event.location %></td></tr>
+            <tr><th>Registration Fee</th><td><strong><%= number_with_delimiter(@event.registration_fee, delimiter: ',') %> BDT</strong></td></tr>
+          </table>
+        </div>
+        <div class="card-footer text-center">
+          <%= form_tag create_event_payment_member_payments_path, method: :post do %>
+            <%= hidden_field_tag :event_id, @event.id %>
+            <button type="submit" class="btn btn-primary btn-round btn-lg">
+              <i class="fas fa-credit-card"></i> Proceed to Payment
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

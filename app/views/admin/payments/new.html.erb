@@ -1,0 +1,95 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Add Manual Payment</h2>
+        <h5 class="text-white op-7 mb-2">Record a cash/bank payment</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to admin_payments_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-arrow-left"></i> Back
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Payment Details</div>
+        </div>
+        <%= form_for @payment, url: admin_payments_path, method: :post do |f| %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Member <span class="text-danger">*</span></label>
+                  <%= f.select :user_id, @users.map { |u| ["#{u.name} (#{u.email})", u.id] }, { prompt: 'Select Member' }, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Type <span class="text-danger">*</span></label>
+                  <%= f.select :payment_type, [['Monthly Membership', 'membership_monthly'], ['Yearly Membership', 'membership_yearly'], ['Event Fee', 'event_fee']], { prompt: 'Select Type' }, class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Amount (BDT) <span class="text-danger">*</span></label>
+                  <%= f.number_field :amount, class: 'form-control', step: '0.01', min: '0', placeholder: 'Enter amount' %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Method <span class="text-danger">*</span></label>
+                  <%= f.select :payment_method, [['Cash', 'cash'], ['Bank Transfer', 'bank_transfer'], ['Cheque', 'cheque'], ['Mobile Payment', 'mobile_payment']], { prompt: 'Select Method' }, class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Event (for event fees)</label>
+                  <%= f.select :alumni_event_id, @events.map { |e| ["#{e.title} (#{e.event_date})", e.id] }, { prompt: 'Select Event', include_blank: true }, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Reference Number</label>
+                  <%= f.text_field :reference_number, class: 'form-control', placeholder: 'Reference/Cheque number' %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment For Month</label>
+                  <%= f.date_field :payment_for_month, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment For Year</label>
+                  <%= f.number_field :payment_for_year, class: 'form-control', min: 2020, max: 2030, placeholder: 'e.g. 2026' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Notes</label>
+              <%= f.text_area :notes, class: 'form-control', rows: 3, placeholder: 'Additional notes...' %>
+            </div>
+          </div>
+          <div class="card-footer text-right">
+            <%= link_to 'Cancel', admin_payments_path, class: 'btn btn-secondary btn-round mr-2' %>
+            <%= f.submit 'Create Payment', class: 'btn btn-primary btn-round' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

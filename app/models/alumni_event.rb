@@ -5,6 +5,9 @@ class AlumniEvent < ApplicationRecord
   has_many :event_incomes, dependent: :destroy
   has_many :event_audit_logs, dependent: :destroy
   has_many :expense_payments, through: :event_expenses
+  has_many :event_registrations, dependent: :destroy
+  has_many :registered_users, through: :event_registrations, source: :user
+  has_many :event_payments, class_name: 'Payment', dependent: :nullify
 
   # Validations
   validates :title, presence: true, length: { minimum: 3, maximum: 255 }

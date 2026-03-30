@@ -1,0 +1,61 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Monthly Report - <%= @year %></h2>
+        <h5 class="text-white op-7 mb-2">Month-by-month collection breakdown</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= form_tag monthly_report_admin_collections_path, method: :get, class: 'form-inline' do %>
+          <%= select_tag :year, options_for_select((2023..Date.today.year).to_a.reverse, @year), class: 'form-control mr-2' %>
+          <%= submit_tag 'View', class: 'btn btn-white btn-border btn-round' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Monthly Breakdown - <%= @year %></div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>Month</th>
+              <th class="text-right">Membership</th>
+              <th class="text-right">Event Fees</th>
+              <th class="text-right">Total</th>
+              <th class="text-right">Transactions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% total_all = 0; total_membership = 0; total_event = 0; total_count = 0 %>
+            <% @monthly_data.each do |data| %>
+              <% total_all += data[:total]; total_membership += data[:membership]; total_event += data[:event]; total_count += data[:count] %>
+              <tr>
+                <td><strong><%= data[:month] %></strong></td>
+                <td class="text-right"><%= number_with_delimiter(data[:membership], delimiter: ',') %></td>
+                <td class="text-right"><%= number_with_delimiter(data[:event], delimiter: ',') %></td>
+                <td class="text-right"><strong><%= number_with_delimiter(data[:total], delimiter: ',') %></strong></td>
+                <td class="text-right"><%= data[:count] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot class="table-active">
+            <tr>
+              <th>Total</th>
+              <th class="text-right"><%= number_with_delimiter(total_membership, delimiter: ',') %></th>
+              <th class="text-right"><%= number_with_delimiter(total_event, delimiter: ',') %></th>
+              <th class="text-right"><%= number_with_delimiter(total_all, delimiter: ',') %></th>
+              <th class="text-right"><%= total_count %></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

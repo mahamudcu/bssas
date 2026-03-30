@@ -1,5 +1,42 @@
 Rails.application.routes.draw do
 
+  # Accounts & Payment Module Routes
+  namespace :admin do
+    resources :payments, only: [:index, :show, :new, :create] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+    resources :subscriptions
+    resources :transactions, only: [:index]
+    resources :collections, only: [:index] do
+      collection do
+        get :monthly_report
+        get :member_wise
+        get :event_wise
+      end
+    end
+  end
+
+  namespace :member do
+    resources :payments, only: [:index] do
+      collection do
+        get :pay_membership
+        post :create_membership_payment
+        get :events
+        get :pay_event
+        post :create_event_payment
+      end
+    end
+  end
+
+  # SSLCommerz Callbacks
+  post 'sslcommerz/success', to: 'sslcommerz#success', as: :sslcommerz_success
+  post 'sslcommerz/fail', to: 'sslcommerz#fail', as: :sslcommerz_fail
+  post 'sslcommerz/cancel', to: 'sslcommerz#cancel', as: :sslcommerz_cancel
+  post 'sslcommerz/ipn', to: 'sslcommerz#ipn', as: :sslcommerz_ipn
+
   # Alumni Event Management System Routes
   resources :alumni_events do
     member do

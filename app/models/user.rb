@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :alumni_events, dependent: :destroy
   has_many :event_incomes, foreign_key: 'contributor_id', dependent: :nullify
   has_many :event_audit_logs, dependent: :nullify
+  has_many :subscriptions, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :event_registrations, dependent: :destroy
+  has_many :registered_events, through: :event_registrations, source: :alumni_event
 
   ROLE = {
     admin: 'admin',
@@ -96,6 +100,26 @@ class User < ApplicationRecord
 
   def self.find_record login
     where(["phone = :value OR email = :value", {value: login}]).first
+  end
+
+  def active_subscription
+    subscriptions.active.order(created_at: :desc).first
+  end
+
+  def has_active_subscription?
+    active_subscription.present?
+  end
+
+  def total_paid
+    payments.successful.sum(:amount)
+  end
+
+  def pending_dues
+    payments.pending_payments.sum(:amount)
+  end
+
+  def registered_for_event?(event)
+    event_registrations.where(alumni_event: event).exists?
   end
 
   def send_mail

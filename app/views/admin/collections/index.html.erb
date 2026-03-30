@@ -1,0 +1,342 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Collections Dashboard</h2>
+        <h5 class="text-white op-7 mb-2">Financial overview and analytics</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to monthly_report_admin_collections_path, class: "btn btn-white btn-border btn-round mr-2" do %>
+          <i class="fa fa-calendar"></i> Monthly Report
+        <% end %>
+        <%= link_to member_wise_admin_collections_path, class: "btn btn-white btn-border btn-round mr-2" do %>
+          <i class="fa fa-users"></i> Member Wise
+        <% end %>
+        <%= link_to event_wise_admin_collections_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-calendar-check"></i> Event Wise
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <!-- Income Summary Cards -->
+  <div class="row">
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-success card-round">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <div class="icon-big text-center">
+                <i class="fas fa-wallet text-white"></i>
+              </div>
+            </div>
+            <div class="col-7 col-stats">
+              <div class="numbers">
+                <p class="card-category text-white">Total Income</p>
+                <h4 class="card-title text-white"><%= number_with_delimiter(@total_income, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-info card-round">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <div class="icon-big text-center">
+                <i class="fas fa-calendar-alt text-white"></i>
+              </div>
+            </div>
+            <div class="col-7 col-stats">
+              <div class="numbers">
+                <p class="card-category text-white">Monthly Fees</p>
+                <h4 class="card-title text-white"><%= number_with_delimiter(@monthly_income, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-primary card-round">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <div class="icon-big text-center">
+                <i class="fas fa-calendar-check text-white"></i>
+              </div>
+            </div>
+            <div class="col-7 col-stats">
+              <div class="numbers">
+                <p class="card-category text-white">Yearly Fees</p>
+                <h4 class="card-title text-white"><%= number_with_delimiter(@yearly_income, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="card card-stats card-warning card-round">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <div class="icon-big text-center">
+                <i class="fas fa-ticket-alt text-white"></i>
+              </div>
+            </div>
+            <div class="col-7 col-stats">
+              <div class="numbers">
+                <p class="card-category text-white">Event Fees</p>
+                <h4 class="card-title text-white"><%= number_with_delimiter(@event_income, delimiter: ',') %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Monthly Collection Trend</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="min-height: 300px;">
+            <canvas id="monthlyCollectionChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Membership Status</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="min-height: 250px;">
+            <canvas id="membershipStatusChart"></canvas>
+          </div>
+          <div class="mt-3">
+            <div class="d-flex justify-content-between mb-2">
+              <span><i class="fas fa-circle text-success"></i> Paid Members</span>
+              <strong><%= @paid_member_count %></strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span><i class="fas fa-circle text-danger"></i> Due Members</span>
+              <strong><%= @due_member_count %></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Type & Method Distribution -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Collection by Type</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="min-height: 250px;">
+            <canvas id="paymentTypeChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Collection by Method</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="min-height: 250px;">
+            <canvas id="paymentMethodChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending & Event Collections -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">Pending Approvals</div>
+            <div class="card-tools">
+              <span class="badge badge-warning"><%= number_with_delimiter(@pending_amount, delimiter: ',') %> BDT</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <% Payment.pending_payments.manual.includes(:user).recent.limit(5).each do |p| %>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <strong><%= p.user&.name %></strong>
+                <br><small class="text-muted"><%= p.payment_type_label %> - <%= p.payment_method&.titleize %></small>
+              </div>
+              <div class="text-right">
+                <strong><%= number_with_delimiter(p.amount, delimiter: ',') %> BDT</strong>
+                <br>
+                <%= link_to 'Review', admin_payment_path(p), class: 'btn btn-sm btn-warning btn-round' %>
+              </div>
+            </div>
+            <div class="separator-dashed"></div>
+          <% end %>
+          <% if Payment.pending_payments.manual.count == 0 %>
+            <p class="text-muted text-center">No pending approvals</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Event-wise Collection</div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr><th>Event</th><th class="text-right">Collected (BDT)</th></tr>
+              </thead>
+              <tbody>
+                <% @event_collections.each do |(event_id, title), amount| %>
+                  <tr>
+                    <td><%= title %></td>
+                    <td class="text-right"><strong><%= number_with_delimiter(amount, delimiter: ',') %></strong></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <% if @event_collections.empty? %>
+            <p class="text-muted text-center">No event collections yet</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Payments -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-head-row">
+        <div class="card-title">Recent Successful Payments</div>
+        <div class="card-tools">
+          <%= link_to admin_payments_path(status: 'success'), class: 'btn btn-sm btn-label-info btn-round' do %>
+            View All
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr><th>Member</th><th>Type</th><th>Amount</th><th>Method</th><th>Date</th></tr>
+          </thead>
+          <tbody>
+            <% @recent_payments.each do |p| %>
+              <tr>
+                <td><%= p.user&.name %></td>
+                <td><%= p.payment_type_label %></td>
+                <td class="text-right"><%= number_with_delimiter(p.amount, delimiter: ',') %></td>
+                <td><%= p.payment_method&.titleize %></td>
+                <td><%= p.created_at.strftime('%d %b %Y') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    if (typeof Chart === 'undefined') return;
+
+    // Monthly Collection Trend
+    var monthlyData = <%= @monthly_collections.to_json.html_safe %>;
+    var labels = Object.keys(monthlyData);
+    var values = Object.values(monthlyData);
+
+    new Chart(document.getElementById('monthlyCollectionChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Collection (BDT)',
+          data: values,
+          backgroundColor: '#177dff',
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+      }
+    });
+
+    // Membership Status
+    new Chart(document.getElementById('membershipStatusChart').getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Paid', 'Due'],
+        datasets: [{
+          data: [<%= @paid_member_count %>, <%= @due_member_count %>],
+          backgroundColor: ['#2BB930', '#F25961'],
+          borderWidth: 0
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { position: 'bottom' } }
+    });
+
+    // Payment Type Distribution
+    var typeData = <%= @payment_type_distribution.to_json.html_safe %>;
+    new Chart(document.getElementById('paymentTypeChart').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: Object.keys(typeData).map(function(k) {
+          return k.replace('membership_', '').replace('_', ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
+        }),
+        datasets: [{
+          data: Object.values(typeData),
+          backgroundColor: ['#177dff', '#2BB930', '#FF9E27'],
+          borderWidth: 0
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { position: 'bottom' } }
+    });
+
+    // Payment Method Distribution
+    var methodData = <%= @payment_method_distribution.to_json.html_safe %>;
+    new Chart(document.getElementById('paymentMethodChart').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: Object.keys(methodData).map(function(k) {
+          return k.replace('_', ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
+        }),
+        datasets: [{
+          data: Object.values(methodData),
+          backgroundColor: ['#177dff', '#2BB930', '#FF9E27', '#F25961', '#6861CE'],
+          borderWidth: 0
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, legend: { position: 'bottom' } }
+    });
+  });
+</script>

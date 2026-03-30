@@ -1,0 +1,95 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Transaction History</h2>
+        <h5 class="text-white op-7 mb-2">Complete record of all transactions</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <!-- Filters -->
+  <div class="card">
+    <div class="card-body py-2">
+      <%= form_tag admin_transactions_path, method: :get, class: 'form-inline' do %>
+        <div class="form-group mr-2 mb-2">
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search name or TXN ID...' %>
+        </div>
+        <div class="form-group mr-2 mb-2">
+          <%= select_tag :status, options_for_select([['All Status', ''], ['Pending', 'pending'], ['Success', 'success'], ['Failed', 'failed'], ['Cancelled', 'cancelled']], params[:status]), class: 'form-control' %>
+        </div>
+        <div class="form-group mr-2 mb-2">
+          <%= select_tag :payment_type, options_for_select([['All Types', ''], ['Monthly', 'membership_monthly'], ['Yearly', 'membership_yearly'], ['Event Fee', 'event_fee']], params[:payment_type]), class: 'form-control' %>
+        </div>
+        <div class="form-group mr-2 mb-2">
+          <%= date_field_tag :date_from, params[:date_from], class: 'form-control', placeholder: 'From' %>
+        </div>
+        <div class="form-group mr-2 mb-2">
+          <%= date_field_tag :date_to, params[:date_to], class: 'form-control', placeholder: 'To' %>
+        </div>
+        <div class="form-group mr-2 mb-2">
+          <%= submit_tag 'Search', class: 'btn btn-primary btn-round' %>
+        </div>
+        <div class="form-group mb-2">
+          <%= link_to 'Clear', admin_transactions_path, class: 'btn btn-secondary btn-round' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Transactions Table -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Transactions (<%= @transactions.count %>)</div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Member</th>
+              <th>Phone</th>
+              <th>Type</th>
+              <th>Amount (BDT)</th>
+              <th>Method</th>
+              <th>Status</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @transactions.each do |txn| %>
+              <tr>
+                <td><code><%= txn.transaction_id %></code></td>
+                <td>
+                  <strong><%= txn.user&.name %></strong>
+                  <br><small class="text-muted"><%= txn.user&.email %></small>
+                </td>
+                <td><%= txn.user&.phone %></td>
+                <td><%= txn.payment_type_label %></td>
+                <td class="text-right"><strong><%= number_with_delimiter(txn.amount, delimiter: ',') %></strong></td>
+                <td>
+                  <% if txn.payment_method == 'sslcommerz' %>
+                    <span class="badge badge-info">SSLCommerz</span>
+                  <% else %>
+                    <span class="badge badge-secondary"><%= txn.payment_method&.titleize %></span>
+                  <% end %>
+                </td>
+                <td><span class="badge <%= txn.status_badge_class %>"><%= txn.status&.titleize %></span></td>
+                <td><%= txn.created_at.strftime('%d %b %Y %H:%M') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @transactions.empty? %>
+        <div class="text-center py-4">
+          <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
+          <p class="text-muted">No transactions found</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

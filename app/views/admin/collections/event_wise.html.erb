@@ -1,0 +1,61 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Event-wise Collection</h2>
+        <h5 class="text-white op-7 mb-2">Registration fee collection per event</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to admin_collections_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-arrow-left"></i> Back to Dashboard
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Events & Collections</div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Reg. Fee</th>
+              <th class="text-right">Registrations</th>
+              <th class="text-right">Total Collected</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+              <% collected = event.event_payments.successful.sum(:amount) %>
+              <tr>
+                <td><strong><%= event.title %></strong></td>
+                <td><%= event.event_date&.strftime('%d %b %Y') || 'TBD' %></td>
+                <td>
+                  <span class="badge badge-<%= event.status == 'completed' ? 'success' : (event.status == 'cancelled' ? 'danger' : 'info') %>">
+                    <%= event.status.titleize %>
+                  </span>
+                </td>
+                <td><%= number_with_delimiter(event.registration_fee, delimiter: ',') %> BDT</td>
+                <td class="text-right"><%= event.event_registrations.confirmed.count %></td>
+                <td class="text-right"><strong><%= number_with_delimiter(collected, delimiter: ',') %> BDT</strong></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @events.empty? %>
+        <div class="text-center py-4">
+          <p class="text-muted">No events found</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">New Subscription</h2>
+        <h5 class="text-white op-7 mb-2">Create a subscription for a member</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Subscription Details</div>
+        </div>
+        <%= form_for @subscription, url: admin_subscriptions_path do |f| %>
+          <%= render 'form', f: f %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

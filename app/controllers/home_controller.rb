@@ -36,6 +36,12 @@ class HomeController < ApplicationController
     @total_committees = Committee.count rescue 0
     @total_committee_members = CommitteeMember.count rescue 0
 
+    # Payment Statistics
+    @total_payment_income = Payment.successful.sum(:amount) rescue 0
+    @total_pending_payments = Payment.pending_payments.sum(:amount) rescue 0
+    @active_subscriptions = Subscription.active.count rescue 0
+    @total_payments_count = Payment.successful.count rescue 0
+
     # Photo Gallery Statistics
     @total_galleries = PhotoGallery.count rescue 0
 

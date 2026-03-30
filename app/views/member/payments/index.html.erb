@@ -1,0 +1,137 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">My Payments</h2>
+        <h5 class="text-white op-7 mb-2">View your payment history and dues</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to pay_membership_member_payments_path, class: "btn btn-white btn-border btn-round mr-2" do %>
+          <i class="fa fa-credit-card"></i> Pay Dues
+        <% end %>
+        <%= link_to events_member_payments_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-calendar"></i> Event Registration
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <!-- Summary Cards -->
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-success bubble-shadow-small">
+                <i class="fas fa-wallet"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Total Paid</p>
+                <h4 class="card-title"><%= number_with_delimiter(@total_paid, delimiter: ',') %> BDT</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-<%= @active_subscription ? 'success' : 'danger' %> bubble-shadow-small">
+                <i class="fas fa-id-card"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Subscription</p>
+                <h4 class="card-title">
+                  <% if @active_subscription %>
+                    <%= @active_subscription.plan_type.titleize %> - Active
+                  <% else %>
+                    No Active Plan
+                  <% end %>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="card card-stats card-round">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-icon">
+              <div class="icon-big text-center icon-info bubble-shadow-small">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+            </div>
+            <div class="col col-stats ml-3 ml-sm-0">
+              <div class="numbers">
+                <p class="card-category">Next Due</p>
+                <h4 class="card-title"><%= @active_subscription&.next_due_date&.strftime('%d %b %Y') || 'N/A' %></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment History -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Payment History</div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Transaction ID</th>
+              <th>Type</th>
+              <th>Amount (BDT)</th>
+              <th>Method</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Event</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @payments.each do |payment| %>
+              <tr>
+                <td><code><%= payment.transaction_id %></code></td>
+                <td><%= payment.payment_type_label %></td>
+                <td class="text-right"><strong><%= number_with_delimiter(payment.amount, delimiter: ',') %></strong></td>
+                <td>
+                  <% if payment.payment_method == 'sslcommerz' %>
+                    <span class="badge badge-info">Online</span>
+                  <% else %>
+                    <span class="badge badge-secondary"><%= payment.payment_method&.titleize %></span>
+                  <% end %>
+                </td>
+                <td><span class="badge <%= payment.status_badge_class %>"><%= payment.status&.titleize %></span></td>
+                <td><%= payment.created_at.strftime('%d %b %Y %H:%M') %></td>
+                <td><%= payment.alumni_event&.title || '-' %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @payments.empty? %>
+        <div class="text-center py-4">
+          <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
+          <p class="text-muted">No payment history yet</p>
+          <%= link_to 'Pay Membership Dues', pay_membership_member_payments_path, class: 'btn btn-primary btn-round' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

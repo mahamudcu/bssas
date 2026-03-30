@@ -1,0 +1,78 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Pay Membership Dues</h2>
+        <h5 class="text-white op-7 mb-2">Choose your subscription plan and pay online</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to member_payments_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-arrow-left"></i> Back
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <% if @subscription %>
+    <div class="alert alert-info">
+      <strong>Current Plan:</strong> <%= @subscription.plan_type.titleize %> -
+      Amount: <strong><%= number_with_delimiter(@subscription.amount, delimiter: ',') %> BDT</strong> -
+      Valid until: <strong><%= @subscription.end_date.strftime('%d %b %Y') %></strong> -
+      Next due: <strong><%= @subscription.next_due_date&.strftime('%d %b %Y') %></strong>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <!-- Monthly Plan -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center bg-info">
+          <h3 class="text-white mb-0">Monthly Plan</h3>
+        </div>
+        <div class="card-body text-center">
+          <h1 class="display-4 fw-bold">500</h1>
+          <p class="text-muted">BDT per month</p>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Full membership access</li>
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Event participation</li>
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Monthly renewal</li>
+          </ul>
+          <%= form_tag create_membership_payment_member_payments_path, method: :post do %>
+            <%= hidden_field_tag :plan_type, 'monthly' %>
+            <button type="submit" class="btn btn-info btn-round btn-lg">
+              <i class="fas fa-credit-card"></i> Pay 500 BDT
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Yearly Plan -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center bg-primary">
+          <h3 class="text-white mb-0">Yearly Plan</h3>
+          <small class="text-white-50">Save 1,000 BDT!</small>
+        </div>
+        <div class="card-body text-center">
+          <h1 class="display-4 fw-bold">5,000</h1>
+          <p class="text-muted">BDT per year</p>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Full membership access</li>
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Event participation</li>
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Annual renewal</li>
+            <li class="mb-2"><i class="fas fa-check text-success"></i> Best value!</li>
+          </ul>
+          <%= form_tag create_membership_payment_member_payments_path, method: :post do %>
+            <%= hidden_field_tag :plan_type, 'yearly' %>
+            <button type="submit" class="btn btn-primary btn-round btn-lg">
+              <i class="fas fa-credit-card"></i> Pay 5,000 BDT
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

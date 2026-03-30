@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="bssas_test_development@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.55">
     <root id="1">
       <DateStyle>mdy</DateStyle>
       <IntrospectionStateNumber>687</IntrospectionStateNumber>
@@ -4679,7 +4679,6 @@ false posixrules
     <schema id="248" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>688</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>351</StateNumber>
       <OwnerName>postgres</OwnerName>

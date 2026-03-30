@@ -1,0 +1,60 @@
+<div class="panel-header bg-primary-gradient">
+  <div class="page-inner py-5">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+      <div>
+        <h2 class="text-white pb-2 fw-bold">Event Registration</h2>
+        <h5 class="text-white op-7 mb-2">Register and pay for upcoming events</h5>
+      </div>
+      <div class="ml-md-auto py-2 py-md-0">
+        <%= link_to member_payments_path, class: "btn btn-white btn-border btn-round" do %>
+          <i class="fa fa-arrow-left"></i> Back
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-inner mt--5">
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><%= event.title %></div>
+          </div>
+          <div class="card-body">
+            <p><i class="fas fa-calendar-alt text-muted"></i> <%= event.event_date&.strftime('%d %b %Y') || 'TBD' %></p>
+            <p><i class="fas fa-map-marker-alt text-muted"></i> <%= event.location || 'TBD' %></p>
+            <p><i class="fas fa-tag text-muted"></i> <%= event.event_type&.titleize %></p>
+            <p><i class="fas fa-users text-muted"></i> Max: <%= event.max_attendees || 'Unlimited' %></p>
+            <hr>
+            <h4 class="text-center">
+              Registration Fee: <strong class="text-primary"><%= number_with_delimiter(event.registration_fee, delimiter: ',') %> BDT</strong>
+            </h4>
+          </div>
+          <div class="card-footer text-center">
+            <% if @registered_event_ids.include?(event.id) %>
+              <span class="badge badge-success p-2"><i class="fas fa-check"></i> Already Registered</span>
+            <% else %>
+              <%= form_tag create_event_payment_member_payments_path, method: :post do %>
+                <%= hidden_field_tag :event_id, event.id %>
+                <button type="submit" class="btn btn-primary btn-round" data-confirm="Pay <%= number_with_delimiter(event.registration_fee, delimiter: ',') %> BDT for <%= event.title %>?">
+                  <i class="fas fa-credit-card"></i> Register & Pay
+                </button>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @events.empty? %>
+    <div class="card">
+      <div class="card-body text-center py-5">
+        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+        <p class="text-muted">No upcoming paid events available</p>
+      </div>
+    </div>
+  <% end %>
+</div>
